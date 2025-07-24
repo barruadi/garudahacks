@@ -1,31 +1,20 @@
 import { relations } from "drizzle-orm/relations";
-import { users, community, localPromotions, communityMessage, localInteraction } from "./schema";
+import { users, community, communityMessage, localProducts, localProductsInteraction, communityInteraction } from "./schema";
 
 export const communityRelations = relations(community, ({one, many}) => ({
 	user: one(users, {
 		fields: [community.createdBy],
 		references: [users.id]
 	}),
-	communityMessages_communityId: many(communityMessage, {
-		relationName: "communityMessage_communityId_community_id"
-	}),
-	communityMessages_replyTo: many(communityMessage, {
-		relationName: "communityMessage_replyTo_community_id"
-	}),
+	communityMessages: many(communityMessage),
 }));
 
 export const usersRelations = relations(users, ({many}) => ({
 	communities: many(community),
-	localPromotions: many(localPromotions),
 	communityMessages: many(communityMessage),
-	localInteractions: many(localInteraction),
-}));
-
-export const localPromotionsRelations = relations(localPromotions, ({one}) => ({
-	user: one(users, {
-		fields: [localPromotions.userId],
-		references: [users.id]
-	}),
+	localProducts: many(localProducts),
+	localProductsInteractions: many(localProductsInteraction),
+	communityInteractions: many(communityInteraction),
 }));
 
 export const communityMessageRelations = relations(communityMessage, ({one, many}) => ({
@@ -33,26 +22,47 @@ export const communityMessageRelations = relations(communityMessage, ({one, many
 		fields: [communityMessage.userId],
 		references: [users.id]
 	}),
-	community_communityId: one(community, {
+	community: one(community, {
 		fields: [communityMessage.communityId],
-		references: [community.id],
-		relationName: "communityMessage_communityId_community_id"
+		references: [community.id]
 	}),
-	community_replyTo: one(community, {
+	communityMessage: one(communityMessage, {
 		fields: [communityMessage.replyTo],
-		references: [community.id],
-		relationName: "communityMessage_replyTo_community_id"
+		references: [communityMessage.id],
+		relationName: "communityMessage_replyTo_communityMessage_id"
 	}),
-	localInteractions: many(localInteraction),
+	communityMessages: many(communityMessage, {
+		relationName: "communityMessage_replyTo_communityMessage_id"
+	}),
+	communityInteractions: many(communityInteraction),
 }));
 
-export const localInteractionRelations = relations(localInteraction, ({one}) => ({
+export const localProductsRelations = relations(localProducts, ({one, many}) => ({
+	user: one(users, {
+		fields: [localProducts.userId],
+		references: [users.id]
+	}),
+	localProductsInteractions: many(localProductsInteraction),
+}));
+
+export const localProductsInteractionRelations = relations(localProductsInteraction, ({one}) => ({
+	user: one(users, {
+		fields: [localProductsInteraction.userId],
+		references: [users.id]
+	}),
+	localProduct: one(localProducts, {
+		fields: [localProductsInteraction.productId],
+		references: [localProducts.id]
+	}),
+}));
+
+export const communityInteractionRelations = relations(communityInteraction, ({one}) => ({
 	communityMessage: one(communityMessage, {
-		fields: [localInteraction.messageId],
+		fields: [communityInteraction.messageId],
 		references: [communityMessage.id]
 	}),
 	user: one(users, {
-		fields: [localInteraction.userId],
+		fields: [communityInteraction.userId],
 		references: [users.id]
 	}),
 }));

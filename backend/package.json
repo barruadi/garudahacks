@@ -7,7 +7,9 @@
     "zip": "zip -j lambda.zip dist/index.js",
     "update": "aws lambda update-function-code --zip-file fileb://lambda.zip --function-name hello",
     "deploy": "run-s build zip update",
-    "drizzle:studio": "drizzle-kit studio"
+    "drizzle:studio": "drizzle-kit studio",
+    "drizzle:introspect": "drizzle-kit introspect"
+
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.10",
