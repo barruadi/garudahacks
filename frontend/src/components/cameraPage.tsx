@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Camera, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface CameraPageProps {
@@ -95,7 +94,7 @@ const CameraPage: React.FC<CameraPageProps> = ({ onBack, onPhotoCaptured }) => {
               className="w-full h-full object-cover"
               style={{
                 minHeight: "100%",
-                transform: "scaleX(-1)", // Mirror effect for better UX
+                transform: "scaleX(1)",
               }}
             />
             <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
@@ -113,7 +112,7 @@ const CameraPage: React.FC<CameraPageProps> = ({ onBack, onPhotoCaptured }) => {
               src={capturedImage}
               alt="Captured"
               className="max-w-full max-h-full object-contain"
-              style={{ transform: "scaleX(-1)" }} // Mirror the captured image too
+              style={{ transform: "scaleX(1)" }} // Mirror the captured image too
             />
             <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-4 z-10">
               <Button
