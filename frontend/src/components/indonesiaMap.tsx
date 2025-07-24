@@ -8,21 +8,23 @@ import {
   useMapEvents
 } from "react-leaflet";
 import type { GeoJSON as LeafletGeoJSONType } from "leaflet";
-import type { LatLngTuple } from "leaflet";
+// import type { LatLngTuple } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import * as L from "leaflet";
 import type { GeoJsonObject, Feature } from "geojson";
+// import { PillIcon } from "lucide-react";
 
-const pins: { id: number; name: string; position: LatLngTuple }[] = [
-  { id: 1, name: "Jakarta", position: [-6.2088, 106.8456] },
-  { id: 2, name: "Surabaya", position: [-7.2575, 112.7521] },
-  { id: 3, name: "Medan", position: [3.5952, 98.6722] },
-];
+// const pin: { id: number; name: string; position: LatLngTuple }[] = [
+//   { id: 1, name: "Jakarta", position: [-6.2088, 106.8456] },
+//   { id: 2, name: "Surabaya", position: [-7.2575, 112.7521] },
+//   { id: 3, name: "Medan", position: [3.5952, 98.6722] },
+// ];
+
 
 interface ProvinceFeature extends Feature {
   properties: {
     state: string;
-    [key: string]: any;
+    [key: string]: unknown;
   };
 }
 
@@ -52,7 +54,7 @@ function ZoomableGeoJSON({
     <GeoJSON
       data={data}
       onEachFeature={onEachFeature}
-      ref={geoJsonRef as any}
+      ref={geoJsonRef as unknown as React.Ref<LeafletGeoJSONType>}
     />
   );
 }
@@ -69,6 +71,31 @@ export default function IndonesiaMap() {
   const [geoData, setGeoData] = useState<GeoJsonObject | null>(null);
   const geoJsonRef = useRef<LeafletGeoJSONType | null>(null);
   const [zoomLevel, setZoomLevel] = useState<number>(5); // initial zoom
+  const [pins, setPins] = useState<{ 
+    id: number; 
+    name: string; 
+    latitude: number;
+    longitude: number;
+    photo?: string;
+    description?: string;
+    createdBy?: number;
+    provinceId?: number;
+    threeDUrl?: string;
+  }[]>([]);
+  
+  const fetchPinData = async() => {
+    try{
+      const res = await fetch("http://localhost:8001/api/sites")
+      if (!res.ok) {
+        throw new Error("Failed to fetch pin data");
+      }
+      const data = await res.json();
+      setPins(data.data);
+    }
+    catch (err) {
+      console.error("Error loading GeoJSON:", err);
+    }
+  }
 
   const fetchGeoData = async () => {
     try {
@@ -91,6 +118,7 @@ export default function IndonesiaMap() {
   };
 
   useEffect(() => {
+    fetchPinData();
     fetchGeoData();
   }, []);
 
@@ -118,7 +146,7 @@ export default function IndonesiaMap() {
           )}
           {zoomLevel >= 6 &&
             pins.map((pin) => (
-              <Marker key={pin.id} position={pin.position}>
+              <Marker key={pin.id} position={[pin.latitude, pin.longitude]}>
                 <Popup>{pin.name}</Popup>
               </Marker>
             ))}
