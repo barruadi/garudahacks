@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import { userController } from "../config/ioc.config";
+import { authMiddleware } from '../middlewares/auth.middleware';
 
 const usersRoute = new Hono();
 
@@ -7,7 +8,7 @@ usersRoute.get("/", async (c) => {
     return userController.getAllUsers(c);
 });
 
-usersRoute.get("/profile", async (c) => {
+usersRoute.get("/profile", authMiddleware, async (c) => {
     return userController.getUserProfile(c);
 });
 
@@ -17,6 +18,10 @@ usersRoute.post("/login", async (c) => {
 
 usersRoute.post("/register", async (c) => {
     return userController.createUser(c);
+});
+
+usersRoute.post("/add-province", async (c) => {
+    return userController.addProvince(c);
 });
 
 export { usersRoute };

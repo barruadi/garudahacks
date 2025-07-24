@@ -1,5 +1,5 @@
 import { db } from "../db/config";
-import { communityMessage, communityInteraction } from "../db/schema";
+import { sitesMessage, sitesInteraction } from "../db/schema";
 import { eq, and } from "drizzle-orm";
 import { CommunityMessage } from "../types/db.types";
 import { count } from 'drizzle-orm/sql';
@@ -10,23 +10,23 @@ export class CommunityMessageService {
     async getLikeCount(messageId: number): Promise<number> {
         const likeCount = await db
             .select({ count: count() })
-            .from(communityInteraction)
-            .where(eq(communityInteraction.messageId, messageId))
+            .from(sitesInteraction)
+            .where(eq(sitesInteraction.messageId, messageId))
         return likeCount[0]?.count ?? 0;
     }
 
     async getMessagesByCommunityId(communityId: number): Promise<CommunityMessage[]> {
         const messages = await db
             .select({
-                id: communityMessage.id,
-                communityId: communityMessage.communityId,
-                userId: communityMessage.userId,
-                content: communityMessage.message,
-                createdAt: communityMessage.createdAt,
-                replyTo: communityMessage.replyTo,
+                id: sitesMessage.id,
+                communityId: sitesMessage.sitesId,
+                userId: sitesMessage.userId,
+                content: sitesMessage.message,
+                createdAt: sitesMessage.createdAt,
+                replyTo: sitesMessage.replyTo,
             })
-            .from(communityMessage)
-            .where(eq(communityMessage.communityId, communityId));
+            .from(sitesMessage)
+            .where(eq(sitesMessage.sitesId, communityId));
 
         const productsWithLikes: CommunityMessage[] = [];
         for (const message of messages) {
@@ -42,15 +42,15 @@ export class CommunityMessageService {
     async getMessageById(id: number): Promise<CommunityMessage | null> {
         const messageData = await db
             .select({
-                id: communityMessage.id,
-                communityId: communityMessage.communityId,
-                userId: communityMessage.userId,
-                content: communityMessage.message,
-                createdAt: communityMessage.createdAt,
-                replyTo: communityMessage.replyTo,
+                id: sitesMessage.id,
+                communityId: sitesMessage.sitesId,
+                userId: sitesMessage.userId,
+                content: sitesMessage.message,
+                createdAt: sitesMessage.createdAt,
+                replyTo: sitesMessage.replyTo,
             })
-            .from(communityMessage)
-            .where(eq(communityMessage.id, id))
+            .from(sitesMessage)
+            .where(eq(sitesMessage.id, id))
             .limit(1);
         const productsWithLikes: CommunityMessage[] = [];
         for (const message of messageData) {
@@ -67,15 +67,15 @@ export class CommunityMessageService {
     async getRepliesToMessage(messageId: number): Promise<CommunityMessage[]> {
         const replies = await db
             .select({
-                id: communityMessage.id,
-                communityId: communityMessage.communityId,
-                userId: communityMessage.userId,
-                content: communityMessage.message,
-                createdAt: communityMessage.createdAt,
-                replyTo: communityMessage.replyTo,
+                id: sitesMessage.id,
+                communityId: sitesMessage.sitesId,
+                userId: sitesMessage.userId,
+                content: sitesMessage.message,
+                createdAt: sitesMessage.createdAt,
+                replyTo: sitesMessage.replyTo,
             })
-            .from(communityMessage)
-            .where(eq(communityMessage.replyTo, messageId));
+            .from(sitesMessage)
+            .where(eq(sitesMessage.replyTo, messageId));
         const productsWithLikes: CommunityMessage[] = [];
         for (const reply of replies) {
             const likeCount = await this.getLikeCount(reply.id);
@@ -90,9 +90,9 @@ export class CommunityMessageService {
     async createMessage(community_id: number, userId: number, content: string, replyTo: number | null): Promise<boolean> {
         try {
             const result = await db
-                .insert(communityMessage)
+                .insert(sitesMessage)
                 .values({
-                    communityId: community_id,
+                    sitesId: community_id,
                     userId: userId,
                     message: content,
                     replyTo: replyTo ?? null,

@@ -19,6 +19,8 @@ export type Community = {
   title: string;
   description: string;
   createdBy: number | null;
+  provinceId?: number | null;
+  "3DUrl"?: string | null;
 }
 
 export type LocalProduct = {
@@ -33,6 +35,7 @@ export type LocalProduct = {
   latitude: number;
   longitude: number;
   likeCount: number;
+  "3DUrl"?: string | null;
 }
 
 export type CommunityMessage = {

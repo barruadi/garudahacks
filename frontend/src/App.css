@@ -1,9 +1,3 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  text-align: center;
-}
-
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -20,5 +14,5 @@
 }
 
 .leaflet-container {
-  background: white !important;
+  background: #FFFFF7 !important;
 }

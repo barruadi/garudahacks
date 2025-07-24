@@ -20,4 +20,11 @@ localProductionRoute.post("/nearest", async (c) => {
     return localProductsController.getNearestLocalProducts(c);
 });
 
+localProductionRoute.get("/all-tags", async (c) => {
+    return localProductsController.getAllTags(c);
+});
+
+localProductionRoute.get("/tags/:tags", async (c) => {
+    return localProductsController.getProductsByTag(c);
+});
 export { localProductionRoute };
