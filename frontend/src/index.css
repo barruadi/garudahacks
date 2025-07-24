@@ -170,3 +170,7 @@ button {
     @apply bg-background text-foreground;
   }
 }
+
+.font-rye {
+  font-family: 'Rye', serif;
+}
