@@ -6,6 +6,8 @@ import { LocalProductsService } from "../services/local-production.service";
 import { LocalProductsController } from "../controllers/local-production.controller";
 import { CommunityMessageService } from "../services/message.service";
 import { CommunityMessageController } from "../controllers/message.controller";
+import { SearchController } from "../controllers/search.controller";
+
 
 const userService = new UserService();
 const userController = new UserController(userService);
@@ -15,10 +17,12 @@ const communityMessageService = new CommunityMessageService();
 const communityMessageController = new CommunityMessageController(communityMessageService);
 const communityService = new CommunityService(localProductsService);
 const communityController = new CommunityController(communityService);
+const searchController = new SearchController(communityService, localProductsService);
 
 export {
     userController,
     communityController,
     localProductsController,
     communityMessageController,
-}
+    searchController
+};

@@ -16,5 +16,12 @@ communityRoute.post("/", authMiddleware, async (c) => {
     return communityController.createCommunity(c);
 });
 
+communityRoute.get("/tags", async (c) => {
+    return communityController.getAllTags(c);
+});
+
+communityRoute.get("/tags/:tags", async (c) => {
+    return communityController.getSitesByTag(c);
+});
 
 export { communityRoute };

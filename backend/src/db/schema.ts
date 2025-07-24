@@ -1,4 +1,4 @@
-import { pgTable, integer, text, unique, timestamp, foreignKey, doublePrecision, primaryKey } from "drizzle-orm/pg-core"
+import { pgTable, integer, text, foreignKey, unique, timestamp, doublePrecision, primaryKey } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
 
 
@@ -7,6 +7,30 @@ export const province = pgTable("province", {
 	id: integer().primaryKey().generatedAlwaysAsIdentity({ name: "province_id_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647, cache: 1 }),
 	name: text(),
 });
+
+export const productTags = pgTable("product_tags", {
+	id: integer().primaryKey().generatedAlwaysAsIdentity({ name: "product_tags_id_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647, cache: 1 }),
+	productId: integer("product_id"),
+	tag: text(),
+}, (table) => [
+	foreignKey({
+			columns: [table.productId],
+			foreignColumns: [localProducts.id],
+			name: "constraint_1"
+		}),
+]);
+
+export const siteTags = pgTable("site_tags", {
+	id: integer().primaryKey().generatedAlwaysAsIdentity({ name: "site_tags_id_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647, cache: 1 }),
+	siteId: integer("site_id"),
+	tag: text(),
+}, (table) => [
+	foreignKey({
+			columns: [table.siteId],
+			foreignColumns: [sites.id],
+			name: "constraint_1"
+		}),
+]);
 
 export const users = pgTable("users", {
 	id: integer().primaryKey().generatedAlwaysAsIdentity({ name: "users_id_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647, cache: 1 }),
@@ -117,4 +141,16 @@ export const sitesInteraction = pgTable("sites_interaction", {
 			name: "user"
 		}),
 	primaryKey({ columns: [table.messageId, table.userId], name: "primary"}),
+]);
+
+export const sitesTags = pgTable("sites_tags", {
+	sitesId: integer("sites_id").notNull(),
+	tag: text().notNull(),
+}, (table) => [
+	foreignKey({
+			columns: [table.sitesId],
+			foreignColumns: [sites.id],
+			name: "connect"
+		}),
+	primaryKey({ columns: [table.sitesId, table.tag], name: "prim"}),
 ]);

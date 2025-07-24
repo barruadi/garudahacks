@@ -1,7 +1,7 @@
 import { db } from "../db/config";
-import { users, localProducts, localProductsInteraction} from "../db/schema";
-import { eq } from "drizzle-orm";
-import { count } from 'drizzle-orm/sql';
+import { users, localProducts, localProductsInteraction, productTags} from "../db/schema";
+import { eq} from "drizzle-orm";
+import { count, inArray } from 'drizzle-orm/sql';
 
 import { LocalProduct } from "../types/db.types";
 
@@ -78,7 +78,8 @@ export class LocalProductsService {
         gmapsLink: string | null,
         latitude: number,
         longitude: number,
-        threeDUrl: string | null
+        threeDUrl: string | null,
+        tags: string[] = []
     ): Promise<boolean> {
         const result = await db
             .insert(localProducts)
@@ -94,6 +95,15 @@ export class LocalProductsService {
                 "3DUrl": threeDUrl,
             })
             .returning();
+
+        for (const tag of tags) {
+            await db
+                .insert(productTags)
+                .values({
+                    productId: result[0].id,
+                    tag: tag,
+                });
+        }
         return result.length > 0;
     }
 
@@ -108,4 +118,46 @@ export class LocalProductsService {
         });
         return nearbyProducts;
     }
+
+    async getAllTags(): Promise<string[]> {
+        const tags = await db
+            .select({ tag: productTags.tag })
+            .from(productTags)
+            .groupBy(productTags.tag);
+        return tags.map(t => t.tag).filter((tag): tag is string => tag !== null);
+    }   
+
+async getProductsByTag(tags: string[]): Promise<LocalProduct[]> {
+    const products = await db
+        .select({
+            id: localProducts.id,
+            userId: localProducts.userId,
+            title: localProducts.title,
+            description: localProducts.description,
+            photoUrl: localProducts.photoUrl,
+            shopLink: localProducts.shopLink,
+            gmapsLink: localProducts.gmapsLink,
+            createdAt: localProducts.createdAt,
+            latitude: localProducts.latitude,
+            longitude: localProducts.longitude,
+            "3DUrl": localProducts["3DUrl"],
+        })
+        .from(localProducts)
+        .innerJoin(productTags, eq(localProducts.id, productTags.productId))
+        .where(inArray(productTags.tag, tags)) // cari produk yang memiliki salah satu dari tag
+        .groupBy(localProducts.id); // hindari duplikat karena join
+
+    const productsWithLikes: LocalProduct[] = await Promise.all(
+        products.map(async (product) => {
+            const likeCount = await this.getLike(product.id);
+            return {
+                ...product,
+                likeCount,
+            };
+        })
+    );
+
+    return productsWithLikes;
+}
+
 }
