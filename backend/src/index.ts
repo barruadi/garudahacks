@@ -3,7 +3,7 @@ import { handle } from 'hono/aws-lambda'
 import { serve } from '@hono/node-server'
 import { cors } from 'hono/cors'
 import { usersRoute } from './routes/users.route'
-
+import { communityRoute } from './routes/community.route'
 const app = new Hono()
 
 app.use('*', cors({
@@ -22,7 +22,7 @@ app.get('/', (c) => {
 })
 
 app.route('/api/users', usersRoute)
-
+app.route('/api/communities', communityRoute)
 
 serve({
   fetch: app.fetch,
