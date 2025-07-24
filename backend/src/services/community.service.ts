@@ -1,9 +1,11 @@
 import { db } from "../db/config";
 import { users, community } from "../db/schema";
 import { eq } from "drizzle-orm";
-import { Community } from "../types/db.types";
+import { Community, LocalProduct } from "../types/db.types";
+import { LocalProductsService } from "./local-production.service";
 
 export class CommunityService{
+    constructor(private localProductsService: LocalProductsService) {}
     async getAllCommunities(): Promise<Community[]> {
         const allCommunities = await db
             .select({
@@ -49,6 +51,10 @@ export class CommunityService{
             })
             .returning();
         return result.length > 0;
+    }
+
+    async getNearestLocalProducts(latitude: number, longitude: number): Promise<LocalProduct[]> {
+        return this.localProductsService.getNearestLocalProducts(latitude, longitude);
     }
 
 }
