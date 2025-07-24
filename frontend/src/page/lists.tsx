@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom"
 import { LocalProductCard } from "@/components/lists/localProductCard"
 import { SitesCard } from "@/components/lists/sitesCard"
 import { useMenuBarOption } from "@/store/menuStore"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import type { LocalProductCardProps, SitesCardProps } from "@/types/pins.types"
 
 const LocalProductDummy = {
     id: 1,
@@ -32,14 +33,17 @@ export default function ListsPage() {
     const navigate = useNavigate();
     const menuOption = useMenuBarOption((state) => state.selected);
 
+    const [localProductList, setLocalProductList] = useState<LocalProductCardProps[]>([]);
+    const [sitesList, setSitesList] = useState<SitesCardProps[]>([]);
+
     useEffect(() => {
         if (menuOption === "Local Products") {
             // fetch all local-products
-
+            setSitesList([]);
         }
         if (menuOption === "Cultural Sites") {
             // fetch all cultural-sites
-
+            setLocalProductList([]);
         }
 
     }, [menuOption])
@@ -58,8 +62,12 @@ export default function ListsPage() {
             <MenuBar/>
         </div>
         <div className="p-4 space-y-2">
-        <LocalProductCard {...LocalProductDummy} />
-        <SitesCard {...SitesDummy} />
+        {localProductList.length > 0 && (
+            <LocalProductCard {...LocalProductDummy} />
+        )}
+        {sitesList.length > 0 && (
+            <SitesCard {...SitesDummy} />
+        )}
         </div>
         
     </div>
