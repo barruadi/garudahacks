@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { ChevronLeft } from "lucide-react"
 import { useNavigate } from "react-router-dom"
+import { toast } from "sonner"
 
 const signInPage = () => {
   const [username, setUsername] = useState("")
@@ -43,12 +44,13 @@ const signInPage = () => {
 
       localStorage.setItem("token", token);
 
-      console.log("Login successful!");
+      toast.success("Login successful")
+      navigate("/map");
+      
     } catch (err: unknown) {
       const errorMessage =
         err instanceof Error ? err.message : "An unknown error occurred";
-      console.error("Login error:", errorMessage);
-      alert(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }

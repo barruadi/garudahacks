@@ -17,6 +17,7 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 const provinces = [
   "Aceh",
@@ -118,7 +119,7 @@ const SitesForm: React.FC<LocationFormProps> = ({
       console.log("Form submitted:", formData);
       console.log("Photo file:", capturedPhoto);
     } else {
-      alert("Please capture a photo before submitting");
+      toast.warning("Please capture a photo before submitting");
     }
   };
 

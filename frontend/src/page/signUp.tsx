@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { ChevronLeft } from "lucide-react"
 import { useNavigate } from "react-router-dom"
+import { toast } from "sonner"
 
 const signUpPage = () => {
   const [username, setUsername] = useState("")
@@ -23,12 +24,41 @@ const signUpPage = () => {
     setLoading(true)
 
     try {
-      // TODO: api call for login
+      e.preventDefault()
+      setLoading(true)
+
+      // Check if passwords match
+      if (password !== confirmPassword) {
+        setLoading(false)
+        toast.error("Passwords do not match")
+        return
+      }
+
+      const res = await fetch("http://localhost:8001/api/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      })
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || "Login failed");
+      }
+
+      toast.success("Sign up success!");
+      navigate("/")
 
     } catch (err: any) {
-
+      const errorMessage =
+        err instanceof Error ? err.message : "An unknown error occurred";
+      toast.error(errorMessage);
     } finally {
-
+      setLoading(false);
     }
   }
 
