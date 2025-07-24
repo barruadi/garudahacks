@@ -28,24 +28,6 @@ export const community = pgTable("community", {
 		}),
 ]);
 
-export const localPromotions = pgTable("local_promotions", {
-	id: integer().primaryKey().generatedAlwaysAsIdentity({ name: "local_promotions_id_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647, cache: 1 }),
-	userId: integer().notNull(),
-	title: text().notNull(),
-	description: text().notNull(),
-	photoUrl: text("photo_url").notNull(),
-	shopLink: text("shop_link"),
-	gmapsLink: text("gmaps_link"),
-	createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
-	province: text().notNull(),
-}, (table) => [
-	foreignKey({
-			columns: [table.userId],
-			foreignColumns: [users.id],
-			name: "created_user"
-		}),
-]);
-
 export const communityMessage = pgTable("community_message", {
 	id: integer().primaryKey().generatedAlwaysAsIdentity({ name: "community_message_id_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647, cache: 1 }),
 	userId: integer("user_id").notNull(),
@@ -66,12 +48,48 @@ export const communityMessage = pgTable("community_message", {
 		}),
 	foreignKey({
 			columns: [table.replyTo],
-			foreignColumns: [community.id],
+			foreignColumns: [table.id],
 			name: "reply_to"
 		}),
 ]);
 
-export const localInteraction = pgTable("local_interaction", {
+export const localProducts = pgTable("local_products", {
+	id: integer().primaryKey().generatedAlwaysAsIdentity({ name: "local_promotions_id_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647, cache: 1 }),
+	userId: integer().notNull(),
+	title: text().notNull(),
+	description: text().notNull(),
+	photoUrl: text("photo_url").notNull(),
+	shopLink: text("shop_link"),
+	gmapsLink: text("gmaps_link"),
+	createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
+	latitude: doublePrecision().notNull(),
+	longitude: doublePrecision().notNull(),
+}, (table) => [
+	foreignKey({
+			columns: [table.userId],
+			foreignColumns: [users.id],
+			name: "created_user"
+		}),
+]);
+
+export const localProductsInteraction = pgTable("local_products_interaction", {
+	productId: integer("product_id").generatedAlwaysAsIdentity({ name: "local_products_interaction_product_id_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647, cache: 1 }),
+	userId: integer("user_id").notNull(),
+}, (table) => [
+	foreignKey({
+			columns: [table.userId],
+			foreignColumns: [users.id],
+			name: "user"
+		}),
+	foreignKey({
+			columns: [table.productId],
+			foreignColumns: [localProducts.id],
+			name: "product"
+		}),
+	primaryKey({ columns: [table.productId, table.userId], name: "connect"}),
+]);
+
+export const communityInteraction = pgTable("community_interaction", {
 	messageId: integer("message_id").notNull(),
 	userId: integer("user_id").notNull(),
 }, (table) => [

@@ -1,6 +1,5 @@
 import { Hono } from 'hono'
 import { userController } from "../config/ioc.config";
-import { users } from '../db/schema';
 
 const usersRoute = new Hono();
 
