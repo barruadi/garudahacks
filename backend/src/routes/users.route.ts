@@ -19,4 +19,8 @@ usersRoute.post("/register", async (c) => {
     return userController.createUser(c);
 });
 
+usersRoute.post("/add-province", async (c) => {
+    return userController.addProvince(c);
+});
+
 export { usersRoute };

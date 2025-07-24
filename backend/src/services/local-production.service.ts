@@ -28,6 +28,7 @@ export class LocalProductsService {
                 createdAt: localProducts.createdAt,
                 latitude: localProducts.latitude,
                 longitude: localProducts.longitude,
+                "3DUrl": localProducts["3DUrl"],
             })
             .from(localProducts);
 
@@ -55,6 +56,7 @@ export class LocalProductsService {
                 createdAt: localProducts.createdAt,
                 latitude: localProducts.latitude,
                 longitude: localProducts.longitude,
+                "3DUrl": localProducts["3DUrl"],
             })
             .from(localProducts)
             .where(eq(localProducts.id, id))
@@ -75,7 +77,8 @@ export class LocalProductsService {
         shopLink: string | null,
         gmapsLink: string | null,
         latitude: number,
-        longitude: number
+        longitude: number,
+        threeDUrl: string | null
     ): Promise<boolean> {
         const result = await db
             .insert(localProducts)
@@ -88,6 +91,7 @@ export class LocalProductsService {
                 gmapsLink: gmapsLink,
                 latitude: latitude,
                 longitude: longitude,
+                "3DUrl": threeDUrl,
             })
             .returning();
         return result.length > 0;

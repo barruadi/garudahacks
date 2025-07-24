@@ -25,7 +25,7 @@ app.get('/', (c) => {
 })
 
 app.route('/api/users', usersRoute)
-app.route('/api/communities', communityRoute)
+app.route('/api/sites', communityRoute)
 app.route('/api/local-products', localProductionRoute)
 app.route('/api/messages', messageRoute)
 

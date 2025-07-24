@@ -1,5 +1,5 @@
 import { db } from "../db/config";
-import { users } from "../db/schema";
+import { province, users } from "../db/schema";
 import { User, UserWithoutPassword, CreateNewUserRequest } from "../types/db.types";
 import { signToken } from "../utils/jwt";
 import { eq, and } from "drizzle-orm";
@@ -75,6 +75,15 @@ export class UserService{
         return result.length > 0;
     }
 
-
+    async addProvince(name: string[]): Promise<boolean> {
+        if (!name || name.length === 0) {
+            throw new Error("Province name is required");
+        }
+        const result = await db
+            .insert(province)
+            .values(name.map((n) => ({ name: n })));
+        // If the insert succeeds without throwing, return true
+        return Array.isArray(result) ? result.length > 0 : !!result;
+    }
 
 }

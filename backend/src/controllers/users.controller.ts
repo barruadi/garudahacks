@@ -59,5 +59,21 @@ export class UserController {
         }
     }
 
+    async addProvince(c: Context): Promise<Response> {
+        try {
+            const { name } = await c.req.json();
+            if (!name) {
+                return c.json({ success: false, error: 'Province name is required' }, 400);
+            }
+            // Assuming there's a method in UserService to add a province
+            const result = await this.usersService.addProvince(name);
+            if (!result) {
+                return c.json({ success: false, error: 'Failed to add province' }, 400);
+            }
+            return c.json({ success: true, message: 'Province added successfully' });
+        } catch (error: any) {
+            return c.json({ success: false, error: error.message ?? 'Internal server error' }, 500);
+        }
+    }
 
 }
