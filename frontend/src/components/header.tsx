@@ -35,7 +35,7 @@ export default function Header () {
 				placeholder="Search..."
 				value={search}
 				onChange={(e) => setSearch(e.target.value)}
-				className="flex-grow p-2 border bg-white border-gray-300 rounded-full focus:outline-none focus:ring"
+				className="flex-grow p-2 border text-black bg-white border-gray-300 rounded-full focus:outline-none focus:ring"
 			/>
 
 			{/* Search button on the right */}
