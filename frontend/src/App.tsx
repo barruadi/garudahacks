@@ -5,6 +5,7 @@ import SignUp from "./page/signUp"
 import SignIn from "./page/signIn"
 import IndonesiaMap from "./page/map"
 import AddSitesPage from "./page/addPageSites"
+import AddLocalProductPage from "./page/addLocalProductPage"
 import SplashPage from "./page/splash"
 import ListsPage from "./page/lists"
 
@@ -17,6 +18,7 @@ function App() {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/map" element={<IndonesiaMap />} />
       <Route path="/add-sites" element={<AddSitesPage />} />
+      <Route path="/add-local-products" element={<AddLocalProductPage />} />
       <Route path="/lists" element={<ListsPage />} />
     </Routes>
   )
