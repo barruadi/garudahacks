@@ -21,7 +21,7 @@ app.get('/', (c) => {
   })
 })
 
-app.route('/users', usersRoute)
+app.route('/api/users', usersRoute)
 
 
 serve({
