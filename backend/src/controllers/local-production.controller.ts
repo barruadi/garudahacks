@@ -37,7 +37,7 @@ export class LocalProductsController {
     async createLocalProduct(c: Context): Promise<Response> {
         try {
             const userFromToken = c.get('user');
-            const { title, description, photoUrl, shopLink, gmapsLink, latitude, longitude } = await c.req.json();
+            const { title, description, photoUrl, shopLink, gmapsLink, latitude, longitude, threeDUrl, tags } = await c.req.json();
 
             const result = await this.localProductsService.createLocalProduct(
                 userFromToken.id,
@@ -47,12 +47,33 @@ export class LocalProductsController {
                 shopLink,
                 gmapsLink,
                 latitude,
-                longitude
+                longitude,
+                threeDUrl,
+                tags
             );
             if (!result) {
                 return c.json({ success: false, error: 'Failed to create product' }, 400);
             }
             return c.json({ success: true, message: 'Product created successfully' });
+        } catch (error: any) {
+            return c.json({ success: false, error: error.message ?? 'Internal server error' }, 500);
+        }
+    }
+
+    async getAllTags(c: Context): Promise<Response> {
+        try {
+            const tags = await this.localProductsService.getAllTags();
+            return c.json({ success: true, data: tags });
+        } catch (error: any) {
+            return c.json({ success: false, error: error.message ?? 'Internal server error' }, 500);
+        }
+    }
+
+    async getProductsByTag(c: Context): Promise<Response> {
+        try {
+            const tags = c.req.param('tags').split(',');
+            const products = await this.localProductsService.getProductsByTag(tags);
+            return c.json({ success: true, data: products });
         } catch (error: any) {
             return c.json({ success: false, error: error.message ?? 'Internal server error' }, 500);
         }

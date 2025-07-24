@@ -5,12 +5,10 @@ import { Label } from "@/components/ui/label"
 import { ChevronLeft } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
-const signUpPage = () => {
+const signInPage = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
   const [loading, setLoading] = useState(false)
-
 
   const navigate = useNavigate()
   
@@ -19,18 +17,42 @@ const signUpPage = () => {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
+    e.preventDefault();
+    setLoading(true);
 
     try {
-      // TODO: api call for login
+      // TODO: change to env process
+      const res = await fetch("http://localhost:8001/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      });
 
-    } catch (err: any) {
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || "Login failed");
+      }
 
+      const data = await res.json();
+      const token = data.data.token;
+
+      localStorage.setItem("token", token);
+
+      console.log("Login successful!");
+    } catch (err: unknown) {
+      const errorMessage =
+        err instanceof Error ? err.message : "An unknown error occurred";
+      console.error("Login error:", errorMessage);
+      alert(errorMessage);
     } finally {
-
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="w-full flex flex-col h-screen justify-between bg-[#FFFCEE] px-6">
@@ -41,7 +63,7 @@ const signUpPage = () => {
 
       {/* Sign In Form */}
       <div className="flex flex-col items-center mt-24">
-        <h1 className="text-4xl font-semibold mb-8">Sign Up</h1>
+        <h1 className="text-4xl font-semibold mb-8">Sign In</h1>
 
         <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-6">
           <div>
@@ -68,18 +90,6 @@ const signUpPage = () => {
             />
           </div>
 
-          <div>
-            <Label htmlFor="confirm-password" className="text-sm">Confirm Password</Label>
-            <Input
-              id="confirm-password"
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="password"
-              className="mt-1"
-            />
-          </div>
-
           <Button
             type="submit"
             className="w-full !bg-[#B48B57] hover:!bg-[#a37949] !text-white"
@@ -98,4 +108,4 @@ const signUpPage = () => {
   )
 }
 
-export default signUpPage
+export default signInPage
