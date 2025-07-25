@@ -83,7 +83,7 @@ const LocalProductForm: React.FC<LocationFormProps> = ({
             <Input
               id="name"
               type="text"
-              placeholder="Enter the site name"
+              placeholder="Enter product name"
               value={formData.name}
               onChange={(e) => handleInputChange("name", e.target.value)}
               required

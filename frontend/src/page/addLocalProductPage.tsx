@@ -108,6 +108,7 @@ export default function AddLocalProductPage() {
             tags: [],
           }),
         });
+        res;
 
       toast.success("Product added successfully!");
       navigate("/map");

@@ -102,6 +102,7 @@ export default function AddSitesPage() {
             tags: [],
           }),
         });
+        res;
 
       toast.success("Sites added successfully!");
       navigate("/map");
