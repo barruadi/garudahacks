@@ -1,17 +1,17 @@
 import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
-import { useState } from 'react';
+// import { useState } from 'react';
 import type { SitesCardProps } from "@/types/pins.types";
 import { useNavigate } from "react-router-dom";
 
 export const SitesCard = ( {
     id,
     photo,
-    latitude,
-    longitude,
+    // latitude,
+    // longitude,
     title,
     description,
-    createdBy,
-    provinceId
+    // createdBy,
+    // provinceId
 }: SitesCardProps) => {
 
     const navigate = useNavigate();

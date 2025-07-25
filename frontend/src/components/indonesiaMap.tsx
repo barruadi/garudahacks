@@ -103,6 +103,7 @@ export default function IndonesiaMap() {
   };
 
   const onEachProvince = (feature: ProvinceFeature, layer: L.Layer) => {
+    feature;
     (layer as L.Path).setStyle({
       color: "#444",
       fillColor: "#B78748",

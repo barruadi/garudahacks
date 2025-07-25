@@ -16,6 +16,7 @@ export default function addSitesPage() {
     province: "",
   });
   const [isLoading, setIsLoading] = useState(false);
+  isLoading;
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const navigate = useNavigate();

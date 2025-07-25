@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useSearchStore } from "@/store/searchStore";
 import { 
-    Search,
-    X,
 	User
 } from "lucide-react";
 

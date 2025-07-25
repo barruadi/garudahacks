@@ -19,6 +19,10 @@ export default function AddLocalProductPage() {
   const [urlthreeDimensions, setUrlThreeDimensions] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  urltwodimensions;
+  urlthreeDimensions;
+  isLoading;
+
   const navigate = useNavigate();
 
   const handleCameraOpen = () => {
