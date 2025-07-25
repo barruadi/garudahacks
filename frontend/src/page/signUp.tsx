@@ -87,7 +87,7 @@ const signUpPage = () => {
           <h1 className="text-4xl font-semibold mb-8 font-rye" style={{ transform: 'scale(1.4)',}}>Sign Up</h1>
         </motion.div>
 
-        <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-6">
+        <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-6 z-10">
           <div>
             <Label htmlFor="username" className="text-sm">Username</Label>
             <Input
