@@ -45,7 +45,7 @@ const LocalProductPage = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="relative w-screen h-screen overflow-hidden bg-black text-black">
+        <div className="relative w-screen h-screen overflow-hidden bg-white text-black">
       {loading && (
         <div className="absolute inset-0 flex items-center justify-center bg-white z-50">
           <p>Loading...</p>
@@ -85,11 +85,11 @@ const LocalProductPage = () => {
       {/* 2D / 3D Viewer */}
       <div className="absolute inset-0 z-0">
         {viewMode === "3D" && data?.["3DUrl"] && (
-          <ThreeDBox modelPath={`/assets/${data["3DUrl"]}`} />
+          <ThreeDBox modelPath={`${data["3DUrl"]}`} />
         )}
         {viewMode === "2D" && data?.photoUrl && (
           <img
-            src={`/assets/${data.photoUrl}`}
+            src={`${data.photoUrl}`}
             alt="Product Preview"
             className="w-full h-full object-contain bg-white"
           />
