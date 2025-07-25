@@ -184,7 +184,7 @@ export default function IndonesiaMap() {
       fetchPinData();
       fecthLocalPinData();
     }
-  }, []);
+  }, [searchValue]);
 
   const customIcon = L.icon({
     iconUrl: "/map-marker.png", 
@@ -216,7 +216,7 @@ export default function IndonesiaMap() {
               geoJsonRef={geoJsonRef}
             />
           )}
-          {zoomLevel >= 6 &&
+          {zoomLevel >= 5 &&
             pins.map((pin) => (
               <Marker key={pin.id} position={[pin.latitude, pin.longitude]} icon={customIcon}>
                 <Popup>

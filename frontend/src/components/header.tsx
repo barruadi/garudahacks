@@ -1,12 +1,7 @@
 import { useState } from "react";
 import { useSearchStore } from "@/store/searchStore";
-import { 
-	User
-} from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
 export default function Header () {
-    const navigate = useNavigate();
     const [search, setSearch] = useState("");
 	const setSearchValue = useSearchStore((state) => state.setSearchValue);
 
@@ -15,7 +10,6 @@ export default function Header () {
 		const value = e.target.value;
 		setSearch(value);
 		setSearchValue(value);
-		console.log("dhsaidsa")
 	};
 
 
@@ -29,15 +23,8 @@ export default function Header () {
 				placeholder="Search..."
 				value={search}
 				onChange={handleSearch}
-				className="flex-grow p-2 border text-black bg-white border-gray-300 rounded-md focus:outline-none focus:ring"
+				className="flex-grow p-2 border text-black bg-white shadow-[0px_0px_8px_0px_rgba(0,0,0,0.05)] rounded-md focus:outline-none focus:ring"
 			/>
-
-			<button
-				onClick={() => navigate("/profile")}
-				className="p-2 border text-black bg-white border-gray-300 rounded-md focus:outline-none focus:ring"
-			>
-				<User size={24} strokeWidth={1.5} />
-			</button>
 			</div>
         </div>
     )
