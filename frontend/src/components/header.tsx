@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useSearchStore } from "@/store/searchStore";
-import { useNavigate } from "react-router-dom";
 
 export default function Header () {
     const [search, setSearch] = useState("");
