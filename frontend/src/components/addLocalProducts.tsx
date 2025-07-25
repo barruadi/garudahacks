@@ -3,10 +3,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Camera,
-  FileText,
-  Hash,
-  MapPin,
-  User,
   CheckCircle,
 } from "lucide-react";
 import { useEffect } from "react";

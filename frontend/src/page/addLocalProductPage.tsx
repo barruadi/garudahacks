@@ -1,6 +1,5 @@
 import LocalProductForm from "@/components/addLocalProducts";
 import CameraPage from "@/components/cameraPage";
-import { ArrowLeft } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

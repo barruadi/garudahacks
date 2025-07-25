@@ -1,6 +1,5 @@
 import SitesForm from "@/components/addSites";
 import CameraPage from "@/components/cameraPage";
-import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";

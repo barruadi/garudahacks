@@ -10,10 +10,6 @@ import {
 } from "@/components/ui/select";
 import {
   Camera,
-  FileText,
-  Hash,
-  MapPin,
-  User,
   CheckCircle,
 } from "lucide-react";
 import { useEffect } from "react";
