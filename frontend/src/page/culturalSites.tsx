@@ -97,7 +97,7 @@ const CulturalSitesPage = () => {
           drag="y"
           dragConstraints={{ top: 0, bottom: 400 }}
           style={{ y }}
-          className="absolute bottom-0 left-0 right-0 z-10 bg-white rounded-t-2xl shadow-xl p-4 drop-shadow-2xl pb-16"
+          className="absolute bottom-0 left-0 right-0 z-10 bg-white rounded-t-2xl shadow-xl p-4 drop-shadow-2xl pb-16 min-h-[600px]"
         >
           <div className="w-10 h-1.5 bg-gray-300 rounded-full mx-auto mb-4" />
 
@@ -119,6 +119,23 @@ const CulturalSitesPage = () => {
             {data.description ??
               `No description available for this cultural site.`}
           </p>
+          {/* Shop and Maps Links
+          <div>
+            <p className="font-semibold text-sm mb-2">Shop Link</p>
+            <input
+              type="text"
+              value={"Link tidak tersedia"}
+              disabled
+              className="w-full border border-gray-300 rounded-md px-4 py-2 bg-white text-gray-500"
+            />
+            <p className="font-semibold text-sm mb-2 mt-2">GMaps Link</p>
+            <input
+              type="text"
+              value={"Link tidak tersedia"}
+              disabled
+              className="w-full border border-gray-300 rounded-md px-4 py-2 bg-white text-gray-500"
+            />
+          </div> */}
         </motion.div>
       )}
     </div>
