@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label"
 import { ChevronLeft } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
+import { motion } from "framer-motion"
 
 const signInPage = () => {
   const [username, setUsername] = useState("")
@@ -57,16 +58,26 @@ const signInPage = () => {
   };
 
   return (
-    <div className="w-full flex flex-col h-screen justify-between bg-[#FFFCEE] px-6">
-      {/* Back Icon */}
+    <div className="w-full flex flex-col h-screen bg-[#FFFCEE] px-6 justify-center">
+      <motion.img 
+        src="/assets/img/bg-signin.png" 
+        alt="" 
+        className="opacity-10 absolute top-0 left-0 w-full h-full object-cover"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.08 }}
+        transition={{ duration: 1, ease: "easeInOut" }}
+      />
       <div className="absolute top-6 left-4" onClick={handleBack}>
         <ChevronLeft className="text-[#B48B57]" />
       </div>
-
-      {/* Sign In Form */}
       <div className="flex flex-col items-center mt-24">
-        <h1 className="text-4xl font-semibold mb-8">Sign In</h1>
-
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="text-4xl font-semibold mb-8 font-rye" style={{ transform: 'scale(1.4)',}}>Sign In</h1>
+        </motion.div>
         <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-6">
           <div>
             <Label htmlFor="username" className="text-sm">Username</Label>
@@ -75,7 +86,7 @@ const signInPage = () => {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="kangkung"
+              placeholder="username"
               className="mt-1"
             />
           </div>
