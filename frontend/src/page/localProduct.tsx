@@ -3,6 +3,7 @@ import type { LocalProduct } from '../../../backend/src/types/db.types';
 import { useParams } from "react-router-dom";
 import { motion, useMotionValue } from "framer-motion";
 import ThreeDBox from "@/components/ThreeDBox"
+import SpeechButton from "@/components/SpeechButton";
 
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
@@ -144,6 +145,8 @@ const LocalProductPage = () => {
           </div>
         </motion.div>
       )}
+
+      <SpeechButton text={data?.description ?? ""} />
     </div>
     );
 };
