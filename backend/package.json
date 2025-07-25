@@ -26,6 +26,7 @@
     "drizzle-orm": "^0.44.3",
     "form-data": "^4.0.4",
     "hono": "^4.8.5",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "uploadthing": "^7.7.3"
   }
 }
