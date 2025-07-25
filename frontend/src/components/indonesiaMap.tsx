@@ -77,6 +77,7 @@ export default function IndonesiaMap() {
     createdBy?: number;
     provinceId?: number;
     threeDUrl?: string;
+    isProduct?: boolean;
   }[]>([]);
 
   const [localPins, setLocalPins] = useState<{
@@ -92,6 +93,7 @@ export default function IndonesiaMap() {
     longitude: number;
     likeCount: number;
     "3DUrl"?: string | null;
+    isProduct?: boolean;
   }[]>([]);
 
   const fetchSearchResults = async () => {
@@ -119,7 +121,13 @@ export default function IndonesiaMap() {
         throw new Error("Failed to fetch pin data");
       }
       const data = await res.json();
-      setPins(data.data);
+      // Mark all pins as isProduct: false
+      setPins(
+        data.data.map((pin: any) => ({
+          ...pin,
+          isProduct: false,
+        }))
+      );
     }
     catch (err) {
       console.error("Error loading GeoJSON:", err);
@@ -133,7 +141,13 @@ export default function IndonesiaMap() {
         throw new Error("Failed to fetch pin data");
       }
       const data = await res.json();
-      setLocalPins(data.data);
+      // Mark all local pins as isProduct: true
+      setLocalPins(
+        data.data.map((pin: any) => ({
+          ...pin,
+          isProduct: true,
+        }))
+      );
     }
     catch (err) {
       console.error("Error loading GeoJSON:", err);
@@ -215,6 +229,7 @@ export default function IndonesiaMap() {
                         ? pin.description.slice(0, 50) + (pin.description.length > 50 ? "..." : "")
                         : ""
                     }
+                    isProduct={false}
                   />
                 </Popup>
               </Marker>
@@ -233,6 +248,7 @@ export default function IndonesiaMap() {
                         ? pin.description.slice(0, 50) + (pin.description.length > 50 ? "..." : "")
                         : ""
                     }
+                    isProduct={true}
                   />
                 </Popup>
               </Marker>

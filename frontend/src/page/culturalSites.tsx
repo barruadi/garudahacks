@@ -5,6 +5,7 @@ import { motion, useMotionValue } from "framer-motion";
 import ThreeDBox from "@/components/ThreeDBox";
 import { ChevronLeft } from "lucide-react";
 import { API_BASE_URL } from "@/config/api";
+import CommunityMessages from "@/components/CommunityMessages";
 
 type CulturalSiteResponse = {
   success: boolean;
@@ -119,6 +120,9 @@ const CulturalSitesPage = () => {
             {data.description ??
               `No description available for this cultural site.`}
           </p>
+          <CommunityMessages id={numericId} />
+
+
           {/* Shop and Maps Links
           <div>
             <p className="font-semibold text-sm mb-2">Shop Link</p>
