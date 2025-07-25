@@ -17,35 +17,35 @@ interface TutorialOverlayProps {
 const tutorialSteps: TutorialStep[] = [
   {
     id: 1,
-    mascotImage: "../../public/assets/img/Maskot.png",
+    mascotImage: "/assets/img/Maskot.png",
     title: "Welcome!",
     message:
       "Hello! I'm Modo and I will guide you through using Nama Aplikasi. Let's start this short tour!",
   },
   {
     id: 2,
-    mascotImage: "../../public/assets/img/Maskot2.png",
+    mascotImage: "/assets/img/Maskot2.png",
     title: "Explore the Map",
     message:
       "This is an interactive map of Indonesia. You can zoom in or zoom out on various regions to see the cultural sites and local products in those areas.",
   },
   {
     id: 3,
-    mascotImage: "../../public/assets/img/Maskot3.png",
+    mascotImage: "/assets/img/Maskot3.png",
     title: "View All Lists",
     message:
       "Click the 'Lists' button in the bottom left corner to see all available cultural sites and local products.",
   },
   {
     id: 4,
-    mascotImage: "../../public/assets/img/Maskot4.png",
+    mascotImage: "/assets/img/Maskot4.png",
     title: "Add Content",
     message:
       "Use the '+' button in the bottom middle to add new cultural sites or local products to the application.",
   },
   {
     id: 5,
-    mascotImage: "../../public/assets/img/Maskot5.png",
+    mascotImage: "/assets/img/Maskot5.png",
     title: "Ready to Start!",
     message: "Enjoy exploring the cultural richness of Indonesia!",
   },
