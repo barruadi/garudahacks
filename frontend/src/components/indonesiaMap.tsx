@@ -13,6 +13,7 @@ import * as L from "leaflet";
 import type { GeoJsonObject, Feature } from "geojson";
 import { PopUpCard } from "./card-popup";
 import { API_BASE_URL } from "@/config/api"
+import { useSearchStore } from "@/store/searchStore";
 
 
 interface ProvinceFeature extends Feature {
@@ -65,6 +66,7 @@ export default function IndonesiaMap() {
   const [geoData, setGeoData] = useState<GeoJsonObject | null>(null);
   const geoJsonRef = useRef<LeafletGeoJSONType | null>(null);
   const [zoomLevel, setZoomLevel] = useState<number>(5); // initial zoom
+  const { searchValue } = useSearchStore();
   const [pins, setPins] = useState<{
     id: number;
     title: string;
@@ -77,6 +79,39 @@ export default function IndonesiaMap() {
     threeDUrl?: string;
   }[]>([]);
 
+  const [localPins, setLocalPins] = useState<{
+    id: number;
+    userId: number;
+    title: string;
+    description: string;
+    photoUrl: string;
+    shopLink?: string | null;
+    gmapsLink?: string | null;
+    createdAt: string;
+    latitude: number;
+    longitude: number;
+    likeCount: number;
+    "3DUrl"?: string | null;
+  }[]>([]);
+
+  const fetchSearchResults = async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/search?q=${searchValue}`);
+      const result = await res.json();
+
+      if (result.success) {
+        setPins(result.data.communities);
+        setLocalPins(result.data.products);
+      } else {
+        console.error("Search failed:", result.error);
+        setPins([]);
+        setLocalPins([]);
+      }
+    } catch (error) {
+      console.error("Search error:", error);
+    }
+  };
+
   const fetchPinData = async () => {
     try {
       const res = await fetch(`${API_BASE_URL}/api/sites`)
@@ -85,6 +120,20 @@ export default function IndonesiaMap() {
       }
       const data = await res.json();
       setPins(data.data);
+    }
+    catch (err) {
+      console.error("Error loading GeoJSON:", err);
+    }
+  }
+
+  const fecthLocalPinData = async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/local-products`)
+      if (!res.ok) {
+        throw new Error("Failed to fetch pin data");
+      }
+      const data = await res.json();
+      setLocalPins(data.data);
     }
     catch (err) {
       console.error("Error loading GeoJSON:", err);
@@ -113,15 +162,21 @@ export default function IndonesiaMap() {
   };
 
   useEffect(() => {
-    fetchPinData();
     fetchGeoData();
+
+    if (searchValue) {
+      fetchSearchResults();
+    } else {
+      fetchPinData();
+      fecthLocalPinData();
+    }
   }, []);
 
   const customIcon = L.icon({
-    iconUrl: "/map-marker.png", // path to your pin image
-    iconSize: [48, 48],         // width, height
-    iconAnchor: [24, 48],       // point of the icon which corresponds to marker's location
-    popupAnchor: [0, -32],      // point from which popup should open relative to iconAnchor
+    iconUrl: "/map-marker.png", 
+    iconSize: [48, 48],         
+    iconAnchor: [24, 48],       
+    popupAnchor: [0, -32],      
   });
 
 
@@ -154,6 +209,24 @@ export default function IndonesiaMap() {
                   <PopUpCard
                     id={pin.id}
                     userPhoto={pin.photo ?? ""}
+                    title={pin.title}
+                    desc={
+                      pin.description
+                        ? pin.description.slice(0, 50) + (pin.description.length > 50 ? "..." : "")
+                        : ""
+                    }
+                  />
+                </Popup>
+              </Marker>
+            ))}
+
+          {zoomLevel >= 6 &&
+            localPins.map((pin) => (
+              <Marker key={pin.id} position={[pin.latitude, pin.longitude]} icon={customIcon}>
+                <Popup>
+                  <PopUpCard
+                    id={pin.id}
+                    userPhoto={pin.photoUrl ?? ""}
                     title={pin.title}
                     desc={
                       pin.description
