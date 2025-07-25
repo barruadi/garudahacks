@@ -163,9 +163,9 @@ const SpeechButton = () => {
   }
 
   return (
-    <div className="w-screen h-screen bg-transparent text-white flex flex-col justify-center items-center p-4">
-      <div className="w-full max-w-md text-center">
-        <div className="mb-6 h-48 overflow-y-auto bg-transparent backdrop-blur-sm rounded-lg p-3 border border-black">
+    <div className="w-full bg-transparent text-white flex flex-col justify-center items-center p-4 z-50 fixed top-0 left-0">
+      <div className="w-full text-center">
+        <div className="mb-6 h-48 overflow-y-auto bg-transparent backdrop-blur-xs rounded-lg p-3 border border-black">
           {chatHistory.length === 0 ? (
             <div className="text-gray-500 text-sm">...</div>
           ) : (
@@ -193,7 +193,7 @@ const SpeechButton = () => {
           disabled={isButtonDisabled}
           className={`
             flex items-center justify-center w-20 h-20 mx-auto
-            text-white rounded-full
+            text-black rounded-full
             transition-all duration-300 ease-in-out
             shadow-lg hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-white
             ${
