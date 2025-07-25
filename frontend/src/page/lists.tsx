@@ -55,14 +55,14 @@ export default function ListsPage() {
   return (
     <div className="min-h-screen bg-[#FFFCEE] text-black">
         {/* Header */}
-        <div className="bg-white pt-4 px-4 flex flex-col">
+        <div className="sticky top-0 z-50 bg-white pt-4 px-4 flex flex-col">
             <div className="flex text-xl items-center gap-3 mb-6">
-                <button onClick={() => navigate("/map")}>
-                    <ChevronLeft className="w-6 h-6" />
-                </button>
-                Indonesia
+            <button onClick={() => navigate("/map")}>
+                <ChevronLeft className="w-6 h-6" />
+            </button>
+            Indonesia
             </div>
-            <MenuBar/>
+            <MenuBar />
         </div>
         <div className="p-4 space-y-2">
         {menuOption === "Local Products" &&
