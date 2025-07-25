@@ -36,10 +36,6 @@ const LocalProductPage = () => {
         fetchData();
     }, [id]);
 
-    // console.log("data kita: ", data);
-    // console.log(`/assets/${data?.photoUrl}`);
-    // console.log(data?.description)
-    // console.log(`/apa/${data?.["3DUrl"]}`)
 
     return (
         <div className="min-h-screen bg-[#FFFEF8] p-4 text-black">
