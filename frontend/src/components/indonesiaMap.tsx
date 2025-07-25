@@ -65,9 +65,9 @@ export default function IndonesiaMap() {
   const [geoData, setGeoData] = useState<GeoJsonObject | null>(null);
   const geoJsonRef = useRef<LeafletGeoJSONType | null>(null);
   const [zoomLevel, setZoomLevel] = useState<number>(5); // initial zoom
-  const [pins, setPins] = useState<{ 
-    id: number; 
-    name: string; 
+  const [pins, setPins] = useState<{
+    id: number;
+    title: string;
     latitude: number;
     longitude: number;
     photo?: string;
@@ -76,9 +76,9 @@ export default function IndonesiaMap() {
     provinceId?: number;
     threeDUrl?: string;
   }[]>([]);
-  
-  const fetchPinData = async() => {
-    try{
+
+  const fetchPinData = async () => {
+    try {
       const res = await fetch(`${API_BASE_URL}/api/sites`)
       if (!res.ok) {
         throw new Error("Failed to fetch pin data");
@@ -126,7 +126,7 @@ export default function IndonesiaMap() {
 
   return (
     <div className="flex h-screen bg-black text-white">
-      
+
       <div className="w-full h-full relative">
         <MapContainer
           center={[-2, 118]}
@@ -150,10 +150,15 @@ export default function IndonesiaMap() {
             pins.map((pin) => (
               <Marker key={pin.id} position={[pin.latitude, pin.longitude]} icon={customIcon}>
                 <Popup>
-                  <PopUpCard 
-                    userPhoto="/user.png"
-                    title={pin.name}
-                    desc="dsadsa"
+                  <PopUpCard
+                    id={pin.id}
+                    userPhoto={pin.photo ?? ""}
+                    title={pin.title}
+                    desc={
+                      pin.description
+                        ? pin.description.slice(0, 50) + (pin.description.length > 50 ? "..." : "")
+                        : ""
+                    }
                   />
                 </Popup>
               </Marker>

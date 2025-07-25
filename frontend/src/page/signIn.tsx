@@ -8,7 +8,7 @@ import { toast } from "sonner"
 import { motion } from "framer-motion"
 import { API_BASE_URL } from "@/config/api"
 
-const signInPage = () => {
+const SignInPage = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
@@ -122,4 +122,4 @@ const signInPage = () => {
   )
 }
 
-export default signInPage
+export default SignInPage
