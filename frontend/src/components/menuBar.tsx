@@ -3,7 +3,7 @@ import { useMenuBarOption } from "@/store/menuStore";
 
 export const MenuBar = () => {
   const options = menuOptions;
-  
+
   const {selected, setSelected} = useMenuBarOption();
 
   return (
@@ -14,12 +14,12 @@ export const MenuBar = () => {
           <button
             key={option}
             onClick={() => setSelected(option)}
-            className={`self-stretch px-5 bg-transparent inline-flex flex-col justify-between options-center overflow-hidden`}
+            className={`self-stretch px-5 bg-transparent inline-flex flex-col justify-between options-center overflow-hidden pt-4`}
           >
             <div className="self-stretch h-0"></div>
 
             <div
-              className={`inline-flex justify-start options-center gap-2.5 
+              className={`inline-flex justify-start options-center gap-2
                 ${isSelected ? "text-[#B99976]" : "text-black/90"} 
                 text-sm font-normal leading-snug`}
             >

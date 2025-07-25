@@ -97,7 +97,7 @@ const CulturalSitesPage = () => {
           drag="y"
           dragConstraints={{ top: 0, bottom: 400 }}
           style={{ y }}
-          className="absolute bottom-0 left-0 right-0 z-10 bg-white rounded-t-2xl shadow-xl p-4 drop-shadow-2xl pb-16"
+          className="absolute bottom-0 left-0 right-0 z-10 bg-white rounded-t-2xl shadow-xl p-4 drop-shadow-2xl pb-16 min-h-[600px]"
         >
           <div className="w-10 h-1.5 bg-gray-300 rounded-full mx-auto mb-4" />
 
