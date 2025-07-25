@@ -6,6 +6,8 @@ import ThreeDBox from "@/components/ThreeDBox";
 import { ChevronLeft } from "lucide-react";
 import { API_BASE_URL } from "@/config/api";
 
+import SpeechButton from "@/components/SpeechButton";
+
 type CulturalSiteResponse = {
   success: boolean;
   data: Community;
@@ -121,7 +123,9 @@ const CulturalSitesPage = () => {
           </p>
         </motion.div>
       )}
+      <SpeechButton text={data?.description ?? ""} />
     </div>
+    
   );
 };
 

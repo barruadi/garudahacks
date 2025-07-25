@@ -16,7 +16,14 @@ interface ChatMessage {
   timestamp: Date;
 }
 
-const SpeechButton = () => {
+type SpeechButtonProps = {
+  text: string;
+};
+
+const SpeechButton: React.FC<SpeechButtonProps> = ({ 
+  text
+ }) => {
+  const [showChat, setShowChat] = useState<boolean>(false);
   const [conversationState, setConversationState] =
     useState<ConversationState>("idle");
   const [responseText, setResponseText] = useState<string>("");
@@ -29,11 +36,7 @@ const SpeechButton = () => {
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
 
-  const productContext = `
-    You are a friendly and informative virtual assistant.
-    You are skilled at answering a variety of questions about Rendang.
-    Provide concise, clear answers, and answer it in English with a native accent.
-`;
+  const productContext = text;
 
   useEffect(() => {
     if (!listening && transcript) {
@@ -163,50 +166,65 @@ const SpeechButton = () => {
   }
 
   return (
-    <div className="w-full bg-transparent text-white flex flex-col justify-center items-center p-4 z-50 fixed top-0 left-0">
-      <div className="w-full text-center">
-        <div className="mb-6 h-48 overflow-y-auto bg-transparent backdrop-blur-xs rounded-lg p-3 border border-black">
+    <>
+    {/* Collapsible Chat Overlay */}
+    {showChat && (
+      <div className="fixed bottom-36 right-4 w-[320px] max-h-[50vh] z-50 pointer-events-none">
+        <div className="flex flex-col gap-2 px-4 py-3 rounded-xl bg-gradient-to-t from-white/80 to-white/10 backdrop-blur-md border border-black/10 shadow-md overflow-y-auto h-full transition-all duration-300">
           {chatHistory.length === 0 ? (
-            <div className="text-gray-500 text-sm">...</div>
+            <p className="text-sm text-gray-500">No messages yet</p>
           ) : (
-            <div className="space-y-2">
-              {chatHistory.map((message) => (
-                <div
-                  key={message.id}
-                  className={`text-sm text-black p-2 rounded-lg ${
-                    message.type === "user"
-                      ? "bg-transparent text-left"
-                      : "bg-transparent text-left"
-                  }`}
-                >
-                  <div className="font-medium text-xs mb-1 opacity-70">
-                    {message.type === "user" ? "You" : "Gemini"}
-                  </div>
-                  <div>{message.text}</div>
-                </div>
-              ))}
-            </div>
+            chatHistory.map((message) => (
+              <div
+                key={message.id}
+                className={`text-sm text-black ${
+                  message.type === "user" ? "text-right" : "text-left"
+                }`}
+              >
+                <p className="font-semibold text-xs opacity-70 mb-0.5">
+                  {message.type === "user" ? "You" : "Gemini"}
+                </p>
+                <p className="bg-white/70 backdrop-blur-sm px-3 py-2 rounded-lg inline-block max-w-[90%]">
+                  {message.text}
+                </p>
+              </div>
+            ))
           )}
         </div>
-        <button
-          onClick={handleButtonClick}
-          disabled={isButtonDisabled}
-          className={`
-            flex items-center justify-center w-20 h-20 mx-auto
-            text-black rounded-full
-            transition-all duration-300 ease-in-out
-            shadow-lg hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-white
-            ${
-              isButtonDisabled
-                ? "bg-gray-600 cursor-not-allowed"
-                : "bg-blue-600 hover:bg-blue-700 transform hover:-translate-y-1 hover:scale-110"
-            }
-          `}
-        >
-          {icon}
-        </button>
       </div>
+    )}
+
+    {/* Toggle Button (above mic) */}
+    <div className="fixed bottom-24 right-4 z-50">
+      <button
+        onClick={() => setShowChat((prev) => !prev)}
+        className="text-xs font-medium bg-white text-black border border-gray-300 rounded-full px-3 py-1 shadow hover:shadow-md transition"
+      >
+        {showChat ? "Hide Chat" : "Show Chat"}
+      </button>
     </div>
+
+    {/* Mic Button */}
+    <div className="fixed bottom-4 right-4 z-50">
+      <button
+        onClick={handleButtonClick}
+        disabled={isButtonDisabled}
+        className={`
+          flex items-center justify-center w-16 h-16
+          rounded-full text-black shadow-xl
+          transition-all duration-300 ease-in-out
+          focus:outline-none focus:ring-4 focus:ring-white
+          ${
+            isButtonDisabled
+              ? "bg-gray-600 cursor-not-allowed"
+              : "bg-blue-600 hover:bg-blue-700 transform hover:scale-110"
+          }
+        `}
+      >
+        {icon}
+      </button>
+    </div>
+  </>
   );
 };
 
