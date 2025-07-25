@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 
 const splashPage = () => {

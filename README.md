@@ -20,7 +20,7 @@ A digital exploration portal for historical sites and local products, preserving
 
 ## Key Features
 
-- Sharing-based platform for community
+- Sharing-based mobile web platform for community
 - Immersive 3D exploration of historical sites or local artisant product, replacing traditional 2D interfaces
 - AI Voice Assistant 
 - Marketing of local products for local entrepreneurs.
@@ -40,3 +40,7 @@ A digital exploration portal for historical sites and local products, preserving
 3. Najwa Kahani Fatimah
 4. Rafif Farras
 ---
+
+### Account for Sign In:
+username: barru
+passwrod: adi
