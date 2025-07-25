@@ -1,30 +1,26 @@
-import LocalProductForm from "@/components/addLocalProducts";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import SitesForm from "@/components/addSites";
 import CameraPage from "@/components/cameraPage";
-import { ChevronLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "@/config/api";
 import { toast } from "sonner";
 
-export default function AddLocalProductPage() {
+export default function AddSitesPage() {
   const [currentPage, setCurrentPage] = useState("form");
   const [capturedPhoto, setCapturedPhoto] = useState<File | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    shopLink: "",
-    gmapsLink: "",
+    province: "",
     latitude: "",
     longitude: "",
     tags: "",
   });
   const [urltwodimensions, setUrlTwoDimensions] = useState<string | null>(null);
   const [urlthreeDimensions, setUrlThreeDimensions] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  urltwodimensions;
-  urlthreeDimensions;
-  isLoading;
+  const [, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -90,7 +86,7 @@ export default function AddLocalProductPage() {
   const handleSubmit = async () => {
         try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`${API_BASE_URL}/api/local-products`, {
+        const res = await fetch(`${API_BASE_URL}/api/sites`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -99,9 +95,7 @@ export default function AddLocalProductPage() {
           body: JSON.stringify({
             title: formData.name,
             description: formData.description,
-            photoUrl: urltwodimensions,
-            shopLink: formData.shopLink,
-            gmapsLink: formData.gmapsLink,
+            photo_link: urltwodimensions,
             latitude: formData.latitude,
             longitude: formData.longitude,
             threeDUrl: urlthreeDimensions,
@@ -110,7 +104,7 @@ export default function AddLocalProductPage() {
         });
         res;
 
-      toast.success("Product added successfully!");
+      toast.success("Sites added successfully!");
       navigate("/map");
 
       }
@@ -120,17 +114,16 @@ export default function AddLocalProductPage() {
   }
 
   return (
-    <div className="max-w-md mx-auto bg-[#FFFBEA] shadow-lg">
-      <div className="sticky top-0 z-50 pt-12 px-4 flex flex-col">
-          <div className="flex text-xl items-center gap-3">
-          <button onClick={() => navigate("/map")}>
-              <ChevronLeft className="w-6 h-6" />
-          </button>
-          Add Local Product
-          </div>
-      </div>
+    <div className="max-w-md mx-auto flex flex-col bg-white shadow-lg">
+      <button
+        onClick={() => navigate(-1)}
+        className="absolute top-4 left-4 z-10 text-amber-800 hover:text-amber-600 bg-transparent p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+        style={{ background: "none" }} // Added style to remove background
+      >
+        <ArrowLeft className="w-5 h-5" />
+      </button>
       {currentPage === "form" && (
-        <LocalProductForm
+        <SitesForm
           onCameraOpen={handleCameraOpen}
           formData={formData}
           setFormData={setFormData}
