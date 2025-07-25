@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import LocalProductForm from "@/components/addLocalProducts";
 import CameraPage from "@/components/cameraPage";
-import { ArrowLeft } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "@/config/api";
@@ -21,7 +20,11 @@ export default function AddLocalProductPage() {
   });
   const [urltwodimensions, setUrlTwoDimensions] = useState<string | null>(null);
   const [urlthreeDimensions, setUrlThreeDimensions] = useState<string | null>(null);
-  const [, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  urltwodimensions;
+  urlthreeDimensions;
+  isLoading;
 
   const navigate = useNavigate();
 
@@ -116,14 +119,15 @@ export default function AddLocalProductPage() {
   }
 
   return (
-    <div className="max-w-md mx-auto flex flex-col bg-white shadow-lg">
-      <button
-        onClick={() => navigate(-1)}
-        className="absolute top-4 left-4 z-10 text-amber-800 hover:text-amber-600 bg-transparent p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-        style={{ background: "none" }} // Added style to remove background
-      >
-        <ArrowLeft className="w-5 h-5" />
-      </button>
+    <div className="max-w-md mx-auto bg-[#FFFBEA] shadow-lg">
+      <div className="sticky top-0 z-50 pt-12 px-4 flex flex-col">
+          <div className="flex text-xl items-center gap-3">
+          <button onClick={() => navigate("/map")}>
+              <ChevronLeft className="w-6 h-6" />
+          </button>
+          Add Local Product
+          </div>
+      </div>
       {currentPage === "form" && (
         <LocalProductForm
           onCameraOpen={handleCameraOpen}

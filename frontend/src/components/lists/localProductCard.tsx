@@ -4,25 +4,24 @@ import { useNavigate } from "react-router-dom";
 
 export const LocalProductCard = ( {
     id,
-    userName,
+    userId,
     title,
     description,
     photoUrl,
-    created,
-    userPhoto,
+    createdAt,
 }: LocalProductCardProps) => {
 
     const navigate = useNavigate();
 
     return (
-        <Card onClick={() => {navigate(`/product/${id}`)}}>
+        <Card onClick={() => {navigate(`/local-products/${id}`)}}>
             {/* Header: User Info */}
             <CardHeader className="mb-0">
                 <div className="flex items-center gap-3">
-                    <img src={userPhoto} alt={userName} className="w-10 h-10 rounded-full object-cover bg-gray-200"/>
+                    <img src={photoUrl} alt={photoUrl} className="w-10 h-10 rounded-full object-cover bg-gray-200"/>
                     <div className="flex flex-col items-start">
-                        <span className="font-medium text-sm"> {userName} </span>
-                        <span className="text-xs text-muted-foreground"> Local Artisan • {created} </span>
+                        <span className="font-medium text-sm"> {userId} </span>
+                        <span className="text-xs text-muted-foreground"> Local Artisan • {createdAt.toString()} </span>
                     </div>
                 </div>
             </CardHeader>

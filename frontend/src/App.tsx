@@ -9,7 +9,8 @@ import AddLocalProductPage from "./page/addLocalProductPage"
 import SplashPage from "./page/splash"
 import ListsPage from "./page/lists"
 import LocalProductPage from "./page/localProduct"
-// import TestPage from "./page/test"
+import CulturalSitesPage from "./page/culturalSites"
+import ProfilePage from "./page/profilePage"
 
 function App() {
 
@@ -23,7 +24,8 @@ function App() {
       <Route path="/add-local-products" element={<AddLocalProductPage />} />
       <Route path="/lists" element={<ListsPage />} />
       <Route path="/local-products/:id" element={<LocalProductPage />} />
-      {/* <Route path="/test3d" element={<TestPage />} /> */}
+      <Route path="/sites/:id" element={<CulturalSitesPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
     </Routes>
   )
 }

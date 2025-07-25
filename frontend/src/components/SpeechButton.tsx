@@ -146,7 +146,7 @@ const SpeechButton = () => {
     }
   };
 
-  const { buttonText, statusText, isButtonDisabled, icon } = getUIState();
+  const { isButtonDisabled, icon } = getUIState();
 
   if (!browserSupportsSpeechRecognition) {
     return (
