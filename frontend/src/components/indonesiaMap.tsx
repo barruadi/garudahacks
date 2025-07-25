@@ -8,19 +8,11 @@ import {
   useMapEvents
 } from "react-leaflet";
 import type { GeoJSON as LeafletGeoJSONType } from "leaflet";
-// import type { LatLngTuple } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import * as L from "leaflet";
 import type { GeoJsonObject, Feature } from "geojson";
 import { PopUpCard } from "./card-popup";
 import { API_BASE_URL } from "@/config/api"
-// import { PillIcon } from "lucide-react";
-
-// const pin: { id: number; name: string; position: LatLngTuple }[] = [
-//   { id: 1, name: "Jakarta", position: [-6.2088, 106.8456] },
-//   { id: 2, name: "Surabaya", position: [-7.2575, 112.7521] },
-//   { id: 3, name: "Medan", position: [3.5952, 98.6722] },
-// ];
 
 
 interface ProvinceFeature extends Feature {
@@ -42,14 +34,14 @@ function ZoomableGeoJSON({
   const map = useMap();
 
   useEffect(() => {
-    const layer = L.geoJSON(data);
-    const bounds = layer.getBounds();
-    if (bounds.isValid()) {
-      map.fitBounds(bounds, {
-        maxZoom: 6,
-        padding: [20, 20],
-      });
-    }
+    // const layer = L.geoJSON(data);
+    // const bounds = layer.getBounds();
+    // if (bounds.isValid()) {
+    //   map.fitBounds(bounds, {
+    //     maxZoom: 6,
+    //     padding: [20, 20],
+    //   });
+    // }
   }, [data, map]);
 
   return (
