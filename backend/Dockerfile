@@ -1,14 +1,14 @@
-# Gunakan base image Node.js
 FROM node:18
 
-# Set working directory di dalam container
 WORKDIR /app
 
-# Salin file project ke dalam container
-COPY . .
+# Copy only package.json and lock first
+COPY package*.json ./
 
-# Install dependencies
+# Install node_modules *dalam Docker*
 RUN npm install
 
-# Jalankan aplikasi
+# Baru copy source code (tanpa node_modules)
+COPY . .
+
 CMD ["npm", "run", "dev"]
