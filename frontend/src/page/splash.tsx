@@ -23,19 +23,17 @@ const splashPage = () => {
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.6 }}
         >
-          <MapPin
-            className="w-40 h-40 text-[#B48B57] mb-6"
-            strokeWidth={1.75}
-          />
+          <img src="/logo-arcana.png" alt="logo" className="w-24 h-auto" />
+          {/* You can adjust to w-16, w-24, etc. */}
         </motion.div>
 
         <motion.h1
-          className="text-4xl font-semibold text-black font-rye"
+          className="text-3xl font-semibold text-black font-rye"
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1.4, opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.6 }}
         >
-          Culture
+          Arcana
         </motion.h1>
       </motion.div>
 

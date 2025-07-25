@@ -1,8 +1,11 @@
+import { useNavigate } from "react-router";
+
 interface PopUpCardProps {
     id: number,
     userPhoto: string,
     title: string,
     desc: string,
+    isProduct?: boolean
 }
 
 export function PopUpCard({
@@ -10,9 +13,17 @@ export function PopUpCard({
     userPhoto,
     title,
     desc,
+    isProduct
 }: PopUpCardProps) {
-    
+    const navigate = useNavigate()
+
     async function handleClick() {
+        if (isProduct) {
+            navigate("/local-products/" + id);
+        }
+        else {
+            navigate("/sites/" + id);
+        }
     }
     return (
         <div className="flex flex-col">
