@@ -15,25 +15,25 @@ export default function MapPage() {
       
       <IndonesiaMap />
 
-      <div className="absolute top-4 left-0 right-0 z-20 flex justify-between px-6">
+      <div className="absolute top-4 left-0 right-0 z-[1000] flex justify-between px-6">
         <Header/>
       </div>
 
-      <div className="absolute bottom-6 left-6 z-10 flex justify-center">
+      <div className="absolute bottom-6 left-6 z-[1000] flex justify-center">
         <button
-          className="!bg-[#B78748] text-white font-semibold px-12 py-3 rounded-xl shadow-lg hover:bg-yellow-400 transition"
+          className="!bg-[#B78748] text-white font-semibold px-12 py-2 rounded-xl shadow-lg hover:bg-yellow-400 transition"
           onClick={() => handleClick("/lists")}
         >
           All Lists
         </button>
       </div>
       
-      <div className="absolute bottom-6 right-6 z-10 flex justify-center">
+      <div className="absolute bottom-6 right-6 flex justify-center z-[1000]">
         <button
           className="w-14 h-14 !bg-[#B78748] text-white font-semibold rounded-xl shadow-lg hover:bg-yellow-400 transition flex items-center justify-center"
           onClick={() => handleClick("/add-item")}
         >
-          <Plus />
+          <Plus size={32} />
         </button>
       </div>
     </div>

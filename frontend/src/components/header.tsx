@@ -41,7 +41,7 @@ export default function Header () {
 			{/* Search button on the right */}
 			<button
 				onClick={handleSearch}
-				className="p-2 border text-black bg-white border-gray rounded-full focus:outline-none focus:ring"
+				className="p-2 border text-black bg-white border-gray-300 rounded-full focus:outline-none focus:ring"
 			>
 				<User size={24} strokeWidth={1.5} />
 			</button>
