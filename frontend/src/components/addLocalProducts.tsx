@@ -6,7 +6,6 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { useEffect } from "react";
-import { toast } from "sonner";
 
 interface LocationFormProps {
   onCameraOpen: () => void;
@@ -17,6 +16,8 @@ interface LocationFormProps {
     gmapsLink: string;
     latitude: string;
     longitude: string;
+    tags: string;
+
   };
   setFormData: React.Dispatch<
     React.SetStateAction<{
@@ -26,9 +27,13 @@ interface LocationFormProps {
         gmapsLink: string;
         latitude: string;
         longitude: string;
+        tags: string;
     }>
   >;
   capturedPhoto: File | null;
+  handleSubmit: () => void;
+
+  
 }
 
 const LocalProductForm: React.FC<LocationFormProps> = ({
@@ -36,6 +41,7 @@ const LocalProductForm: React.FC<LocationFormProps> = ({
   formData,
   setFormData,
   capturedPhoto,
+  handleSubmit,
 }) => {
   useEffect(() => {
     if (navigator.geolocation && !formData.latitude && !formData.longitude) {
@@ -61,15 +67,6 @@ const LocalProductForm: React.FC<LocationFormProps> = ({
     }));
   };
 
-  const handleSubmit = () => {
-    if (capturedPhoto) {
-      // TODO
-      console.log("Form submitted:", formData);
-      console.log("Photo file:", capturedPhoto);
-    } else {
-      toast.warning("Please capture a photo before submitting");
-    }
-  };
 
   const handleCamera = () => {
     onCameraOpen();
@@ -86,7 +83,7 @@ const LocalProductForm: React.FC<LocationFormProps> = ({
             <Input
               id="name"
               type="text"
-              placeholder="Enter the site name"
+              placeholder="Enter product name"
               value={formData.name}
               onChange={(e) => handleInputChange("name", e.target.value)}
               required
@@ -139,6 +136,23 @@ const LocalProductForm: React.FC<LocationFormProps> = ({
             />
           </div>
 
+
+          <div className="space-y-2">
+            <Label htmlFor="tags">
+              Tags
+            </Label>
+            <Input
+              id="tags"
+              type="text"
+              placeholder="Enter Tags (comma separated)"
+              value={formData.tags}
+              onChange={(e) => handleInputChange("tags", e.target.value)}
+              required
+              className="bg-white"
+            />
+          </div>
+          
+          <div className="bg-white p-4 rounded-lg border border-b-gray-400">
             <Label className="flex items-center mb-3">
               Current Location
             </Label>
@@ -196,6 +210,7 @@ const LocalProductForm: React.FC<LocationFormProps> = ({
           </Button>
         </div>
       </div>
+    </div>
     </div>
   );
 };

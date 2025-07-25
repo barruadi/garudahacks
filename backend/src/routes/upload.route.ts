@@ -71,7 +71,7 @@ upload.post('/', async (c) => {
 
 upload.post('/convert', async (c) => {
   try {
-    const body = await c.req.json(); // ✅ ini yang cocok untuk Content-Type: application/json
+    const body = await c.req.json();
     const filename = body.filename as string;
 
     if (!filename) {

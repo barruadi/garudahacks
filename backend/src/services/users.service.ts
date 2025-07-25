@@ -28,6 +28,18 @@ export class UserService{
         return user[0] ?? null;
     }
 
+    async getUserById(userId: number): Promise<UserWithoutPassword | null> {
+        const user = await db
+            .select({
+                id: users.id,
+                username: users.username,
+            })
+            .from(users)
+            .where(eq(users.id, userId))
+            .limit(1);
+        return user[0] ?? null;
+    }
+
     async getUserProfile(username: string): Promise<UserWithoutPassword | null> {
         const user = await db
             .select({
