@@ -15,7 +15,9 @@ export default function addSitesPage() {
     longitude: "",
     province: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const navigate = useNavigate();
 
   const handleCameraOpen = () => {
@@ -26,9 +28,32 @@ export default function addSitesPage() {
     setCurrentPage("form");
   };
 
-  const handlePhotoCaptured = (imageFile: File) => {
+   const handlePhotoCaptured = async (imageFile: File) => {
     setCapturedPhoto(imageFile);
     console.log("Photo File:", imageFile);
+    setIsLoading(true);
+    try {
+      console.log("Uploading photo...");
+      const res = await fetch('http://localhost:8001/api/upload', {
+      method: 'POST',
+      body: JSON.stringify({ file: imageFile }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      });
+      console.log("Upload response status:", res);
+      if (!res.ok) {
+      throw new Error('Failed to upload photo');
+      }
+      const data = await res.json();
+      console.log("Upload response:", data);
+    }
+    catch (error) {
+      console.error("Error handling photo capture:", error);
+    }
+    finally {
+      setIsLoading(false);
+    }
   };
 
   return (

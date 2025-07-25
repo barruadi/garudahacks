@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
+import { Camera } from "lucide-react";
 
 interface CameraPageProps {
   onBack: () => void;
