@@ -116,9 +116,17 @@ export default function IndonesiaMap() {
     fetchGeoData();
   }, []);
 
+  const customIcon = L.icon({
+    iconUrl: "/map-marker.png", // path to your pin image
+    iconSize: [48, 48],         // width, height
+    iconAnchor: [24, 48],       // point of the icon which corresponds to marker's location
+    popupAnchor: [0, -32],      // point from which popup should open relative to iconAnchor
+  });
+
 
   return (
     <div className="flex h-screen bg-black text-white">
+      
       <div className="w-full h-full relative">
         <MapContainer
           center={[-2, 118]}
@@ -140,7 +148,7 @@ export default function IndonesiaMap() {
           )}
           {zoomLevel >= 6 &&
             pins.map((pin) => (
-              <Marker key={pin.id} position={[pin.latitude, pin.longitude]}>
+              <Marker key={pin.id} position={[pin.latitude, pin.longitude]} icon={customIcon}>
                 <Popup>
                   <PopUpCard 
                     userPhoto="/user.png"
