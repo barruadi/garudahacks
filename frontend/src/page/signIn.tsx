@@ -6,6 +6,7 @@ import { ChevronLeft } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 import { motion } from "framer-motion"
+import { API_BASE_URL } from "@/config/api"
 
 const signInPage = () => {
   const [username, setUsername] = useState("")
@@ -24,7 +25,7 @@ const signInPage = () => {
 
     try {
       // TODO: change to env process
-      const res = await fetch("http://localhost:8001/api/users/login", {
+      const res = await fetch(`${API_BASE_URL}/api/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

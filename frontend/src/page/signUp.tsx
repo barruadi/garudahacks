@@ -6,6 +6,7 @@ import { ChevronLeft } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 import { motion } from "framer-motion"
+import { API_BASE_URL } from "@/config/api"
 
 const signUpPage = () => {
   const [username, setUsername] = useState("")
@@ -35,7 +36,7 @@ const signUpPage = () => {
         return
       }
 
-      const res = await fetch("http://localhost:8001/api/users/register", {
+      const res = await fetch(`${API_BASE_URL}/api/users/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

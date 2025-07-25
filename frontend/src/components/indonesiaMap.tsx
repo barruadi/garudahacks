@@ -13,6 +13,7 @@ import "leaflet/dist/leaflet.css";
 import * as L from "leaflet";
 import type { GeoJsonObject, Feature } from "geojson";
 import { PopUpCard } from "./card-popup";
+import { API_BASE_URL } from "@/config/api"
 // import { PillIcon } from "lucide-react";
 
 // const pin: { id: number; name: string; position: LatLngTuple }[] = [
@@ -86,7 +87,7 @@ export default function IndonesiaMap() {
   
   const fetchPinData = async() => {
     try{
-      const res = await fetch("http://localhost:8001/api/sites")
+      const res = await fetch(`${API_BASE_URL}/api/sites`)
       if (!res.ok) {
         throw new Error("Failed to fetch pin data");
       }
