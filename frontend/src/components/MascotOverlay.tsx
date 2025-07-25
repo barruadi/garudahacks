@@ -34,14 +34,14 @@ const tutorialSteps: TutorialStep[] = [
     mascotImage: "../../public/assets/img/Maskot3.png",
     title: "View All Lists",
     message:
-      "Click the 'All Lists' button in the bottom left corner to see all available cultural sites and local products.",
+      "Click the 'Lists' button in the bottom left corner to see all available cultural sites and local products.",
   },
   {
     id: 4,
     mascotImage: "../../public/assets/img/Maskot4.png",
     title: "Add Content",
     message:
-      "Use the '+' button in the bottom right corner to add new cultural sites or local products to the application.",
+      "Use the '+' button in the bottom middle to add new cultural sites or local products to the application.",
   },
   {
     id: 5,
@@ -102,7 +102,7 @@ export default function TutorialOverlay({
         >
           <div className="absolute bottom-0 left-8 w-0 h-0 border-l-[20px] border-l-transparent border-r-[20px] border-r-transparent border-t-[20px] border-t-brown-500 transform translate-y-full"></div>
 
-          <div className="text-black">
+          <div className="text-black z-[1000]">
             {currentTutorial.title && (
               <h3 className="text-xl font-bold mb-3">
                 {currentTutorial.title}

@@ -119,23 +119,6 @@ const CulturalSitesPage = () => {
             {data.description ??
               `No description available for this cultural site.`}
           </p>
-          {/* Shop and Maps Links
-          <div>
-            <p className="font-semibold text-sm mb-2">Shop Link</p>
-            <input
-              type="text"
-              value={"Link tidak tersedia"}
-              disabled
-              className="w-full border border-gray-300 rounded-md px-4 py-2 bg-white text-gray-500"
-            />
-            <p className="font-semibold text-sm mb-2 mt-2">GMaps Link</p>
-            <input
-              type="text"
-              value={"Link tidak tersedia"}
-              disabled
-              className="w-full border border-gray-300 rounded-md px-4 py-2 bg-white text-gray-500"
-            />
-          </div> */}
         </motion.div>
       )}
     </div>
