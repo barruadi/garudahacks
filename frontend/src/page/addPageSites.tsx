@@ -3,6 +3,7 @@ import CameraPage from "@/components/cameraPage";
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ChevronLeft } from "lucide-react";
 
 export default function addSitesPage() {
   const [currentPage, setCurrentPage] = useState("form");
@@ -58,20 +59,21 @@ export default function addSitesPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white shadow-lg">
-      <button
-        onClick={() => navigate(-1)}
-        className="absolute top-4 left-4 z-10 text-amber-800 hover:text-amber-600 bg-transparent p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-        style={{ background: "none" }} // Added style to remove background
-      >
-        <ArrowLeft className="w-5 h-5" />
-      </button>
+    <div className="max-w-md mx-auto bg-[#FFFBEA] shadow-lg">
+      <div className="sticky top-0 z-50 pt-12 px-4 flex flex-col">
+          <div className="flex text-xl items-center gap-3">
+          <button onClick={() => navigate("/map")}>
+              <ChevronLeft className="w-6 h-6" />
+          </button>
+          Add Cultural Sites
+          </div>
+      </div>
       {currentPage === "form" && (
         <SitesForm
           onCameraOpen={handleCameraOpen}
           formData={formData}
           setFormData={setFormData}
-          capturedPhoto={capturedPhoto} // tambahkan ini
+          capturedPhoto={capturedPhoto} 
         />
       )}
       {currentPage === "camera" && (

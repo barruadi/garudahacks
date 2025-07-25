@@ -14,7 +14,7 @@ export const LocalProductCard = ( {
     const navigate = useNavigate();
 
     return (
-        <Card onClick={() => {navigate(`/product/${id}`)}}>
+        <Card onClick={() => {navigate(`/local-products/${id}`)}}>
             {/* Header: User Info */}
             <CardHeader className="mb-0">
                 <div className="flex items-center gap-3">

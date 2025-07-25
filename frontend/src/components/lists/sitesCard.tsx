@@ -17,7 +17,7 @@ export const SitesCard = ( {
     const navigate = useNavigate();
 
     return (
-        <Card onClick={() => {navigate(`/product/${id}`)}}>
+        <Card onClick={() => {navigate(`/sites/${id}`)}}>
             {/* Content */}
             <CardContent className="mt-0">
                 {/* Header: User Info */}
