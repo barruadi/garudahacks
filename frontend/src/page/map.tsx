@@ -3,11 +3,14 @@ import { useNavigate } from "react-router-dom";
 import Header from "@/components/header";
 import { Plus } from "lucide-react";
 import Popup from "@/components/popup";
+import TutorialOverlay from "@/components/MascotOverlay";
+import { useTutorial } from "@/hook/useToturial";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 export default function MapPage() {
   const [showPopup, setShowPopup] = useState(false);
+  const { showTutorial, completeTutorial, skipTutorial, restartTutorial } = useTutorial();
 
   const navigate = useNavigate();
 
@@ -22,6 +25,13 @@ export default function MapPage() {
 
       <div className="absolute top-4 left-0 right-0 z-[1000] flex justify-between px-6">
         <Header/>
+        {/* Optional: Add tutorial restart button */}
+        <button
+          onClick={restartTutorial}
+          className="px-3 py-1 text-xs bg-amber-600 hover:bg-amber-700 rounded-lg transition-colors"
+        >
+          Tutorial
+        </button>
       </div>
 
       <div className="absolute bottom-6 left-6 z-[1000] flex justify-center">
@@ -41,6 +51,7 @@ export default function MapPage() {
           <Plus size={32} />
         </button>
       </div>
+
       <Popup isOpen={showPopup} onClose={() => setShowPopup(false)}>
         <div className="space-y-4">
           <Button
@@ -59,6 +70,13 @@ export default function MapPage() {
           </Button>
         </div>
       </Popup>
+
+      {/* Tutorial Overlay */}
+      <TutorialOverlay
+        isVisible={showTutorial}
+        onComplete={completeTutorial}
+        onSkip={skipTutorial}
+      />
     </div>
   );
 }
