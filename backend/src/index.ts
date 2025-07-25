@@ -7,6 +7,8 @@ import { communityRoute } from './routes/community.route'
 import { localProductionRoute } from './routes/local-production.route'
 import { messageRoute } from './routes/message.route'
 import { searchRoute } from './routes/search.route'
+import upload from './routes/upload.route'
+
 
 const app = new Hono()
 
@@ -30,6 +32,9 @@ app.route('/api/sites', communityRoute)
 app.route('/api/local-products', localProductionRoute)
 app.route('/api/messages', messageRoute)
 app.route('/api/search', searchRoute)
+app.route('/api/upload', upload)
+
+
 
 serve({
   fetch: app.fetch,

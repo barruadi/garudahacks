@@ -93,7 +93,7 @@ async function convertImage(filename: string): Promise<void> {
   const payload = {
     type: 'image_to_3d',
     input: {
-      image: imageToDataUrl('no_bg.png'),
+      image: filename,
       model: 'sculpt',
       settings: {
         geometry_model: 'base',
@@ -122,4 +122,5 @@ async function convertImage(filename: string): Promise<void> {
 }
 
 // use this to generate 3d model dari image (remove bg -> generate 3d -> download glb)
-convertImage('Pagaruyung.jpg');
+// convertImage('Pagaruyung.jpg');
+export { convertImage, removeBg, download3DModel, saveGLBFile, imageToDataUrl };
