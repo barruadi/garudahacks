@@ -12,6 +12,7 @@ import type { GeoJSON as LeafletGeoJSONType } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import * as L from "leaflet";
 import type { GeoJsonObject, Feature } from "geojson";
+import { PopUpCard } from "./card-popup";
 // import { PillIcon } from "lucide-react";
 
 // const pin: { id: number; name: string; position: LatLngTuple }[] = [
@@ -147,7 +148,13 @@ export default function IndonesiaMap() {
           {zoomLevel >= 6 &&
             pins.map((pin) => (
               <Marker key={pin.id} position={[pin.latitude, pin.longitude]}>
-                <Popup>{pin.name}</Popup>
+                <Popup>
+                  <PopUpCard 
+                    userPhoto="/user.png"
+                    title={pin.name}
+                    desc="dsadsa"
+                  />
+                </Popup>
               </Marker>
             ))}
         </MapContainer>

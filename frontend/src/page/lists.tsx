@@ -7,27 +7,7 @@ import { useMenuBarOption } from "@/store/menuStore"
 import { useEffect, useState } from "react"
 import type { LocalProductCardProps, SitesCardProps } from "@/types/pins.types"
 
-const LocalProductDummy = {
-    id: 1,
-    userName: "Barru Adi",
-    title: "Tas Rajutan Tangan",
-    description: "Ini adalah tas rajutan tangan yang terbuat dari rotan dan dikemas dengan sepenuh hati.",
-    photoUrl: "/tasrajut.jpg",
-    shopLink: "https://www.lazada.co.id/products/tas-rajut-kambing-i7624314802.html",
-    gmapsLink: "https://maps.app.goo.gl/RCkjZLp3VR1ubd5R9", 
-    created: "2 hari yang lalu",
-    userPhoto: "/user.png",
-}
-
-const SitesDummy = {
-    id: 1,
-    userName: "Adi Barru",
-    created: "2 hari yang lalu",
-    message: "Ini adalah tas rajutan tangan yang terbuat dari rotan dan dikemas dengan sepenuh hati.",
-    likesCount: 134,
-    userPhoto: "/user.png",
-    isInitiallyLiked: true,
-}
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 export default function ListsPage() {
     const navigate = useNavigate();
@@ -36,9 +16,32 @@ export default function ListsPage() {
     const [localProductList, setLocalProductList] = useState<LocalProductCardProps[]>([]);
     const [sitesList, setSitesList] = useState<SitesCardProps[]>([]);
 
+    const fetchData = async () => {
+        // Fetch Sites
+        const sitesRes = await fetch(`${API_BASE_URL}/api/sites`);
+        if (!sitesRes.ok) {
+            const errorData = await sitesRes.json();
+            throw new Error(errorData.error || "Error Fetch Sites Data");
+        }
+        const sitesData = await sitesRes.json();
+        setSitesList(sitesData.data);
+
+        // Fetch Sites
+        const localProductRes = await fetch(`${API_BASE_URL}/api/local-products`);
+        if (!localProductRes.ok) {
+            const errorData = await localProductRes.json();
+            throw new Error(errorData.error || "Error Fetch Sites Data");
+        }
+        const localProductData = await localProductRes.json();
+        setLocalProductList(localProductData.data);
+    }
+
     useEffect(() => {
+        fetchData();
         if (menuOption === "Local Products") {
             // fetch all local-products
+            
+
             setSitesList([]);
         }
         if (menuOption === "Cultural Sites") {
@@ -54,7 +57,7 @@ export default function ListsPage() {
         {/* Header */}
         <div className="bg-white pt-4 px-4 flex flex-col">
             <div className="flex text-xl items-center gap-3 mb-6">
-                <button onClick={() => navigate(-1)}>
+                <button onClick={() => navigate("/map")}>
                     <ChevronLeft className="w-6 h-6" />
                 </button>
                 Indonesia
@@ -62,12 +65,14 @@ export default function ListsPage() {
             <MenuBar/>
         </div>
         <div className="p-4 space-y-2">
-        {localProductList.length > 0 && (
-            <LocalProductCard {...LocalProductDummy} />
-        )}
-        {sitesList.length > 0 && (
-            <SitesCard {...SitesDummy} />
-        )}
+        {menuOption === "Local Products" &&
+            localProductList.map((product) => (
+                <LocalProductCard key={product.id} {...product} />
+        ))}
+        {menuOption === "Cultural Sites" &&
+            sitesList.map((site) => (
+            <SitesCard key={site.id} {...site} />
+        ))}
         </div>
         
     </div>

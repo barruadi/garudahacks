@@ -36,7 +36,9 @@ export const LocalProductCard = ( {
                 {/* Title & Description */}
                 <div className="text-left mt-3">
                     <CardTitle> {title} </CardTitle>
-                    <CardDescription className="mt-2"> {description} </CardDescription>
+                    <CardDescription className="mt-2"> 
+                        {description.split(' ').slice(0, 20).join(' ')}{description.split(' ').length > 10 ? '...' : ''}
+                    </CardDescription>
                 </div>
             </CardContent>  
         </Card>
