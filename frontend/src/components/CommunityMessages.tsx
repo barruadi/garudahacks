@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import { API_BASE_URL } from "@/config/api";
 
 type Message = {
@@ -9,8 +9,13 @@ type Message = {
   timestamp: string;
 };
 
-const CommunityMessages: React.FC = () => {
-  const { id } = useParams();
+type ComProps = {
+  id: number;
+}
+
+const CommunityMessages: React.FC<ComProps> = ({
+  id
+}) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [userMap, setUserMap] = useState<Record<number, string>>({});
   const [input, setInput] = useState("");
