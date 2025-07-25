@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface TutorialStep {
   id: number;
@@ -58,6 +58,7 @@ export default function TutorialOverlay({
 }: TutorialOverlayProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  onSkip;
 
   useEffect(() => {
     if (isVisible) {
