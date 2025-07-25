@@ -8,18 +8,11 @@ import {
   useMapEvents
 } from "react-leaflet";
 import type { GeoJSON as LeafletGeoJSONType } from "leaflet";
-// import type { LatLngTuple } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import * as L from "leaflet";
 import type { GeoJsonObject, Feature } from "geojson";
 import { PopUpCard } from "./card-popup";
-// import { PillIcon } from "lucide-react";
-
-// const pin: { id: number; name: string; position: LatLngTuple }[] = [
-//   { id: 1, name: "Jakarta", position: [-6.2088, 106.8456] },
-//   { id: 2, name: "Surabaya", position: [-7.2575, 112.7521] },
-//   { id: 3, name: "Medan", position: [3.5952, 98.6722] },
-// ];
+import { API_BASE_URL } from "@/config/api"
 
 
 interface ProvinceFeature extends Feature {
@@ -41,14 +34,14 @@ function ZoomableGeoJSON({
   const map = useMap();
 
   useEffect(() => {
-    const layer = L.geoJSON(data);
-    const bounds = layer.getBounds();
-    if (bounds.isValid()) {
-      map.fitBounds(bounds, {
-        maxZoom: 6,
-        padding: [20, 20],
-      });
-    }
+    // const layer = L.geoJSON(data);
+    // const bounds = layer.getBounds();
+    // if (bounds.isValid()) {
+    //   map.fitBounds(bounds, {
+    //     maxZoom: 6,
+    //     padding: [20, 20],
+    //   });
+    // }
   }, [data, map]);
 
   return (
@@ -86,7 +79,7 @@ export default function IndonesiaMap() {
   
   const fetchPinData = async() => {
     try{
-      const res = await fetch("http://localhost:8001/api/sites")
+      const res = await fetch(`${API_BASE_URL}/api/sites`)
       if (!res.ok) {
         throw new Error("Failed to fetch pin data");
       }
@@ -123,9 +116,17 @@ export default function IndonesiaMap() {
     fetchGeoData();
   }, []);
 
+  const customIcon = L.icon({
+    iconUrl: "/map-marker.png", // path to your pin image
+    iconSize: [48, 48],         // width, height
+    iconAnchor: [24, 48],       // point of the icon which corresponds to marker's location
+    popupAnchor: [0, -32],      // point from which popup should open relative to iconAnchor
+  });
+
 
   return (
     <div className="flex h-screen bg-black text-white">
+      
       <div className="w-full h-full relative">
         <MapContainer
           center={[-2, 118]}
@@ -147,7 +148,7 @@ export default function IndonesiaMap() {
           )}
           {zoomLevel >= 6 &&
             pins.map((pin) => (
-              <Marker key={pin.id} position={[pin.latitude, pin.longitude]}>
+              <Marker key={pin.id} position={[pin.latitude, pin.longitude]} icon={customIcon}>
                 <Popup>
                   <PopUpCard 
                     userPhoto="/user.png"
