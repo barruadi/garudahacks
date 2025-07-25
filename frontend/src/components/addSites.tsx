@@ -133,7 +133,6 @@ const SitesForm: React.FC<LocationFormProps> = ({
         <div className="space-y-6">
           <div className="space-y-2 pt-14">
             <Label htmlFor="name">
-              <User className="inline h-4 w-4 mr-2" />
               Site Name
             </Label>
             <Input
@@ -149,7 +148,6 @@ const SitesForm: React.FC<LocationFormProps> = ({
 
           <div className="space-y-2">
             <Label htmlFor="description">
-              <FileText className="inline h-4 w-4 mr-2" />
               Description
             </Label>
             <Input
@@ -165,7 +163,6 @@ const SitesForm: React.FC<LocationFormProps> = ({
 
           <div className="space-y-2">
             <Label htmlFor="hashtag">
-              <Hash className="inline h-4 w-4 mr-2" />
               Hashtag
             </Label>
             <Input
@@ -179,9 +176,7 @@ const SitesForm: React.FC<LocationFormProps> = ({
             />
           </div>
 
-          <div className="bg-white p-4 rounded-lg border border-b-gray-400">
             <Label className="flex items-center mb-3">
-              <MapPin className="h-4 w-4 mr-2" />
               Current Location
             </Label>
             <div className="grid grid-cols-2 gap-3">
@@ -194,7 +189,7 @@ const SitesForm: React.FC<LocationFormProps> = ({
                   type="text"
                   value={formData.latitude}
                   readOnly
-                  className="bg-amber-50 text-amber-800"
+                  className="text-amber-800"
                 />
               </div>
               <div>
@@ -206,10 +201,9 @@ const SitesForm: React.FC<LocationFormProps> = ({
                   type="text"
                   value={formData.longitude}
                   readOnly
-                  className="bg-amber-50 text-amber-800"
+                  className="text-amber-800"
                 />
               </div>
-            </div>
           </div>
 
           <div className="space-y-2">
@@ -252,14 +246,7 @@ const SitesForm: React.FC<LocationFormProps> = ({
 
           <Button
             onClick={handleSubmit}
-            className="w-full py-3 font-medium text-black"
-            disabled={
-              !formData.name ||
-              !formData.description ||
-              !formData.hashtag ||
-              !formData.province ||
-              !capturedPhoto
-            }
+            className="w-full py-3 font-medium !bg-[#B48B57] hover:!bg-[#a37949] !text-white"
           >
             Submit
           </Button>
