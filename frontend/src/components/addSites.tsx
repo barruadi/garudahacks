@@ -2,13 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
   Camera,
   FileText,
   Hash,
@@ -17,70 +10,32 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { useEffect } from "react";
-import { toast } from "sonner";
-
-const provinces = [
-  "Aceh",
-  "North Sumatra",
-  "West Sumatra",
-  "Riau",
-  "Jambi",
-  "South Sumatra",
-  "Bengkulu",
-  "Lampung",
-  "Bangka Belitung Islands",
-  "Riau Islands",
-  "Jakarta",
-  "West Java",
-  "Central Java",
-  "Yogyakarta",
-  "East Java",
-  "Banten",
-  "Bali",
-  "West Nusa Tenggara",
-  "East Nusa Tenggara",
-  "West Kalimantan",
-  "Central Kalimantan",
-  "South Kalimantan",
-  "East Kalimantan",
-  "North Kalimantan",
-  "North Sulawesi",
-  "Central Sulawesi",
-  "South Sulawesi",
-  "Southeast Sulawesi",
-  "Gorontalo",
-  "West Sulawesi",
-  "Maluku",
-  "North Maluku",
-  "West Papua",
-  "Papua",
-  "Central Papua",
-  "Mountain Papua",
-  "South Papua",
-  "Southwest Papua",
-];
 
 interface LocationFormProps {
   onCameraOpen: () => void;
   formData: {
     name: string;
     description: string;
-    hashtag: string;
+    province: string;
     latitude: string;
     longitude: string;
-    province: string;
+    tags: string;
+
   };
   setFormData: React.Dispatch<
     React.SetStateAction<{
-      name: string;
-      description: string;
-      hashtag: string;
-      latitude: string;
-      longitude: string;
-      province: string;
+        name: string;
+        description: string;
+        province: string;
+        latitude: string;
+        longitude: string;
+        tags: string;
     }>
   >;
   capturedPhoto: File | null;
+  handleSubmit: () => void;
+
+  
 }
 
 const SitesForm: React.FC<LocationFormProps> = ({
@@ -88,6 +43,7 @@ const SitesForm: React.FC<LocationFormProps> = ({
   formData,
   setFormData,
   capturedPhoto,
+  handleSubmit,
 }) => {
   useEffect(() => {
     if (navigator.geolocation && !formData.latitude && !formData.longitude) {
@@ -113,15 +69,6 @@ const SitesForm: React.FC<LocationFormProps> = ({
     }));
   };
 
-  const handleSubmit = () => {
-    if (capturedPhoto) {
-      // TODO
-      console.log("Form submitted:", formData);
-      console.log("Photo file:", capturedPhoto);
-    } else {
-      toast.warning("Please capture a photo before submitting");
-    }
-  };
 
   const handleCamera = () => {
     onCameraOpen();
@@ -134,7 +81,7 @@ const SitesForm: React.FC<LocationFormProps> = ({
           <div className="space-y-2 pt-14">
             <Label htmlFor="name">
               <User className="inline h-4 w-4 mr-2" />
-              Site Name
+              Sites Name
             </Label>
             <Input
               id="name"
@@ -163,22 +110,74 @@ const SitesForm: React.FC<LocationFormProps> = ({
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="hashtag">
+            <div className="space-y-2">
+            <Label htmlFor="shopLink">
               <Hash className="inline h-4 w-4 mr-2" />
-              Hashtag
+              Province
+            </Label>
+            <select
+              id="shopLink"
+              value={formData.province}
+              onChange={(e) => handleInputChange("province", e.target.value)}
+              required
+              className="bg-white border rounded px-3 py-2 w-full"
+            >
+              <option value="">Select Province</option>
+              <option value="1">Aceh</option>
+              <option value="2">North Sumatra</option>
+              <option value="3">West Sumatra</option>
+              <option value="4">Riau</option>
+              <option value="5">Jambi</option>
+              <option value="6">South Sumatra</option>
+              <option value="7">Bengkulu</option>
+              <option value="8">Lampung</option>
+              <option value="9">Bangka Belitung Islands</option>
+              <option value="10">Riau Islands</option>
+              <option value="11">Jakarta</option>
+              <option value="12">West Java</option>
+              <option value="13">Central Java</option>
+              <option value="14">Yogyakarta</option>
+              <option value="15">East Java</option>
+              <option value="16">Banten</option>
+              <option value="17">Bali</option>
+              <option value="18">West Nusa Tenggara</option>
+              <option value="19">East Nusa Tenggara</option>
+              <option value="20">West Kalimantan</option>
+              <option value="21">Central Kalimantan</option>
+              <option value="22">South Kalimantan</option>
+              <option value="23">East Kalimantan</option>
+              <option value="24">North Kalimantan</option>
+              <option value="25">North Sulawesi</option>
+              <option value="26">Central Sulawesi</option>
+              <option value="27">South Sulawesi</option>
+              <option value="28">Southeast Sulawesi</option>
+              <option value="29">Gorontalo</option>
+              <option value="30">West Sulawesi</option>
+              <option value="31">Maluku</option>
+              <option value="32">North Maluku</option>
+              <option value="33">West Papua</option>
+              <option value="34">Papua</option>
+            </select>
+            </div>
+
+
+
+          <div className="space-y-2">
+            <Label htmlFor="tags">
+              <Hash className="inline h-4 w-4 mr-2" />
+              Tags
             </Label>
             <Input
-              id="hashtag"
+              id="tags"
               type="text"
-              placeholder="Enter hashtag (e.g., #travel)"
-              value={formData.hashtag}
-              onChange={(e) => handleInputChange("hashtag", e.target.value)}
+              placeholder="Enter Tags (comma separated)"
+              value={formData.tags}
+              onChange={(e) => handleInputChange("tags", e.target.value)}
               required
               className="bg-white"
             />
           </div>
-
+          
           <div className="bg-white p-4 rounded-lg border border-b-gray-400">
             <Label className="flex items-center mb-3">
               <MapPin className="h-4 w-4 mr-2" />
@@ -212,25 +211,6 @@ const SitesForm: React.FC<LocationFormProps> = ({
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="province">Province</Label>
-            <Select
-              value={formData.province}
-              onValueChange={(value) => handleInputChange("province", value)}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select a province" />
-              </SelectTrigger>
-              <SelectContent>
-                {provinces.map((province) => (
-                  <SelectItem key={province} value={province}>
-                    {province}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
           {capturedPhoto && (
             <div className="border-green-200 rounded-lg p-3 flex items-center">
               <CheckCircle className="h-5 w-5 text-green-600 mr-2" />
@@ -253,13 +233,13 @@ const SitesForm: React.FC<LocationFormProps> = ({
           <Button
             onClick={handleSubmit}
             className="w-full py-3 font-medium text-black"
-            disabled={
-              !formData.name ||
-              !formData.description ||
-              !formData.hashtag ||
-              !formData.province ||
-              !capturedPhoto
-            }
+            // disabled={
+            //   !formData.name ||
+            //   !formData.description ||
+            //   !formData.shopLink ||
+            //   !formData.gmapsLink ||
+            //   !capturedPhoto
+            // }
           >
             Submit
           </Button>

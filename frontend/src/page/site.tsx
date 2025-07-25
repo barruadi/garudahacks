@@ -14,7 +14,7 @@ type LocalProductResponse = {
   data: LocalProduct;
 };
 
-const LocalProductPage = () => {
+const SitePage = () => {
     const { id } = useParams<{ id: string }>();
     const numericId = Number(id);
     const [loading, setLoading] = useState(false);
@@ -114,4 +114,4 @@ const LocalProductPage = () => {
     );
 };
 
-export default LocalProductPage;
+export default SitePage;

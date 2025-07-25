@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import LocalProductForm from "@/components/addLocalProducts";
+import SitesForm from "@/components/addSites";
 import CameraPage from "@/components/cameraPage";
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
@@ -7,14 +7,13 @@ import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "@/config/api";
 import { toast } from "sonner";
 
-export default function AddLocalProductPage() {
+export default function AddSitesPage() {
   const [currentPage, setCurrentPage] = useState("form");
   const [capturedPhoto, setCapturedPhoto] = useState<File | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    shopLink: "",
-    gmapsLink: "",
+    province: "",
     latitude: "",
     longitude: "",
     tags: "",
@@ -87,7 +86,7 @@ export default function AddLocalProductPage() {
   const handleSubmit = async () => {
         try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`${API_BASE_URL}/api/local-products`, {
+        const res = await fetch(`${API_BASE_URL}/api/sites`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -96,9 +95,7 @@ export default function AddLocalProductPage() {
           body: JSON.stringify({
             title: formData.name,
             description: formData.description,
-            photoUrl: urltwodimensions,
-            shopLink: formData.shopLink,
-            gmapsLink: formData.gmapsLink,
+            photo_link: urltwodimensions,
             latitude: formData.latitude,
             longitude: formData.longitude,
             threeDUrl: urlthreeDimensions,
@@ -106,7 +103,7 @@ export default function AddLocalProductPage() {
           }),
         });
 
-      toast.success("Product added successfully!");
+      toast.success("Sites added successfully!");
       navigate("/map");
 
       }
@@ -125,7 +122,7 @@ export default function AddLocalProductPage() {
         <ArrowLeft className="w-5 h-5" />
       </button>
       {currentPage === "form" && (
-        <LocalProductForm
+        <SitesForm
           onCameraOpen={handleCameraOpen}
           formData={formData}
           setFormData={setFormData}

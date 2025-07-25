@@ -17,6 +17,22 @@ export class UserController {
         }
     }
 
+    async getUserDataById(c:Context): Promise<Response> {
+        try {
+            const userId = parseInt(c.req.param('id'));
+            if (isNaN(userId)) {
+                return c.json({ success: false, error: 'Invalid user ID' }, 400);
+            }
+            const user = await this.usersService.getUserById(userId);
+            if (!user) {
+                return c.json({ success: false, error: 'User not found' }, 404);
+            }
+            return c.json({ success: true, data: user });
+        } catch (error: any) {
+            return c.json({ success: false, error: error.message ?? 'Internal server error' }, 500);
+        }
+    }
+
     async getUserProfile(c: Context): Promise<Response> {
         try {
             const userFromToken = c.get('user');

@@ -21,3 +21,10 @@ export interface SitesCardProps {
     createdBy: number;
     provinceId: number;
 }
+
+export interface UserProfile {
+    id: number;
+    username: string;
+    photoUrl?: string;
+    createdAt: Date;
+}

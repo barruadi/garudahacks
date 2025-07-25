@@ -10,7 +10,6 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { useEffect } from "react";
-import { toast } from "sonner";
 
 interface LocationFormProps {
   onCameraOpen: () => void;
@@ -21,6 +20,8 @@ interface LocationFormProps {
     gmapsLink: string;
     latitude: string;
     longitude: string;
+    tags: string;
+
   };
   setFormData: React.Dispatch<
     React.SetStateAction<{
@@ -30,9 +31,13 @@ interface LocationFormProps {
         gmapsLink: string;
         latitude: string;
         longitude: string;
+        tags: string;
     }>
   >;
   capturedPhoto: File | null;
+  handleSubmit: () => void;
+
+  
 }
 
 const LocalProductForm: React.FC<LocationFormProps> = ({
@@ -40,6 +45,7 @@ const LocalProductForm: React.FC<LocationFormProps> = ({
   formData,
   setFormData,
   capturedPhoto,
+  handleSubmit,
 }) => {
   useEffect(() => {
     if (navigator.geolocation && !formData.latitude && !formData.longitude) {
@@ -65,15 +71,6 @@ const LocalProductForm: React.FC<LocationFormProps> = ({
     }));
   };
 
-  const handleSubmit = () => {
-    if (capturedPhoto) {
-      // TODO
-      console.log("Form submitted:", formData);
-      console.log("Photo file:", capturedPhoto);
-    } else {
-      toast.warning("Please capture a photo before submitting");
-    }
-  };
 
   const handleCamera = () => {
     onCameraOpen();
@@ -147,6 +144,23 @@ const LocalProductForm: React.FC<LocationFormProps> = ({
             />
           </div>
 
+
+          <div className="space-y-2">
+            <Label htmlFor="tags">
+              <Hash className="inline h-4 w-4 mr-2" />
+              Tags
+            </Label>
+            <Input
+              id="tags"
+              type="text"
+              placeholder="Enter Tags (comma separated)"
+              value={formData.tags}
+              onChange={(e) => handleInputChange("tags", e.target.value)}
+              required
+              className="bg-white"
+            />
+          </div>
+          
           <div className="bg-white p-4 rounded-lg border border-b-gray-400">
             <Label className="flex items-center mb-3">
               <MapPin className="h-4 w-4 mr-2" />
@@ -202,13 +216,13 @@ const LocalProductForm: React.FC<LocationFormProps> = ({
           <Button
             onClick={handleSubmit}
             className="w-full py-3 font-medium text-black"
-            disabled={
-              !formData.name ||
-              !formData.description ||
-              !formData.shopLink ||
-              !formData.gmapsLink ||
-              !capturedPhoto
-            }
+            // disabled={
+            //   !formData.name ||
+            //   !formData.description ||
+            //   !formData.shopLink ||
+            //   !formData.gmapsLink ||
+            //   !capturedPhoto
+            // }
           >
             Submit
           </Button>

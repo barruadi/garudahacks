@@ -24,4 +24,8 @@ usersRoute.post("/add-province", async (c) => {
     return userController.addProvince(c);
 });
 
+usersRoute.get("/:userId", async (c) => {
+    return userController.getUserDataById(c);
+});
+
 export { usersRoute };

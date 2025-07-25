@@ -4,7 +4,7 @@ import './App.css'
 import SignUp from "./page/signUp"
 import SignIn from "./page/signIn"
 import IndonesiaMap from "./page/map"
-import AddSitesPage from "./page/addPageSites"
+import AddSitesPage from "./page/addSitesPage"
 import AddLocalProductPage from "./page/addLocalProductPage"
 import SplashPage from "./page/splash"
 import ListsPage from "./page/lists"
